@@ -1,0 +1,99 @@
+.footer {
+  border-top: 1px solid var(--pt-color-border-subtle);
+  background: rgba(2, 6, 23, 0.9);
+  padding: 1.2rem 2rem;
+  min-height: 80px; 
+}
+
+.footerInner {
+  max-width: 1300px;
+  width: 100%; 
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+/* Bloc brand */
+.footerBrandName {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.footerTagline {
+  margin: 0.25rem 0 0;
+  color: var(--pt-color-text-muted);
+}
+
+/* Navigation centrale */
+.footerNav {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.footerNav a {
+  text-decoration: none;
+  color: var(--pt-color-text-muted);
+  transition: color 0.15s ease;
+}
+
+.footerNav a:hover {
+  color: var(--pt-color-text-main);
+}
+
+/* Bloc droite : socials + copyright */
+.footerMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.socials {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.socials a {
+  text-decoration: none;
+  color: var(--pt-color-text-muted);
+  transition: color 0.15s ease;
+}
+
+.socials a:hover {
+  color: var(--pt-color-primary);
+}
+
+.footerCopy {
+  margin: 0;
+  color: var(--pt-color-text-muted);
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .footer {
+    padding: 1rem 1.2rem;
+  }
+
+  .footerInner {
+    grid-template-columns: minmax(0, 1fr);
+    text-align: left;
+  }
+
+  .footerInner > * + * {
+    margin-top: 1rem;
+  }
+
+  .footerMeta {
+    align-items: flex-start;
+  }
+
+  .footerNav {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}

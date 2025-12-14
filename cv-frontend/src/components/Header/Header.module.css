@@ -1,0 +1,216 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(2, 6, 23, 0.9); /* var(--pt-color-bg) avec transparence */
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--pt-color-border-subtle);
+  height: var(--pt-header-height);
+  display: flex; 
+  align-items: center; 
+}
+
+/* Ligne principale du header */
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  padding: 0rem 2rem;
+  width: 100%; 
+  max-width: 1100px;
+  margin: 0 auto; 
+}
+
+/* Brand */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.logoWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.15rem;
+}
+
+.brandName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(
+    120deg,
+    #f9fafb,
+    var(--pt-color-primary),
+    var(--pt-color-accent)
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Nav desktop */
+
+.nav {
+  margin-left: auto;
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.navItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navLink {
+  text-decoration: none;
+  color: var(--pt-color-text-muted);
+  padding-bottom: 0.3rem;
+  transition: color 0.2s ease;
+}
+
+.navLinkActive {
+  text-decoration: none;
+  color: var(--pt-color-text-main);
+  padding-bottom: 0.3rem;
+}
+
+.navLink:hover {
+  color: var(--pt-color-text-main);
+}
+
+.navUnderline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--pt-color-primary),
+    var(--pt-color-accent)
+  );
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+}
+
+/* Burger mobile */
+
+.mobileToggle {
+  margin-left: 1rem;
+  width: 36px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(15, 23, 42, 0.9);
+
+  display: none; /* visible seulement sur mobile */
+  position: relative; /* pour positionner les lignes dedans */
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Lignes du burger : positionnées précisément */
+
+.burgerLine {
+  position: absolute;
+  left: 50%;
+  width: 16px;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(226, 232, 240, 0.9);
+  transform: translateX(-50%);
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    background-color 0.2s ease;
+}
+
+/* Positions à l'état "burger" */
+
+.burgerLine:nth-child(1) {
+  top: 10px;
+}
+
+.burgerLine:nth-child(2) {
+  top: 16px;
+}
+
+.burgerLine:nth-child(3) {
+  top: 22px;
+}
+
+/* État ouvert : burger -> croix parfaitement centrée */
+
+.mobileToggleOpen .burgerLine:nth-child(1) {
+  top: 16px; /* centre vertical */
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.mobileToggleOpen .burgerLine:nth-child(2) {
+  opacity: 0;
+}
+
+.mobileToggleOpen .burgerLine:nth-child(3) {
+  top: 16px; /* même centre */
+  transform: translateX(-50%) rotate(-45deg);
+}
+
+/* Menu mobile déroulant */
+
+.navMobile {
+  overflow: hidden;
+  border-top: 1px solid rgba(15, 23, 42, 0.9);
+  background: linear-gradient(
+    to bottom,
+    rgba(2, 6, 23, 0.98),
+    rgba(2, 6, 23, 0.96)
+  );
+}
+
+.navMobileInner {
+  padding: 0.6rem 2rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.navMobileLink,
+.navMobileLinkActive {
+  text-decoration: none;
+  padding: 0.45rem 0;
+  font-size: 0.95rem;
+}
+
+.navMobileLink {
+  color: var(--pt-color-text-muted);
+}
+
+.navMobileLinkActive {
+  color: var(--pt-color-text-main);
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .headerRow {
+    padding-inline: 1.2rem;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .mobileToggle {
+    display: inline-flex;
+    margin-left: auto;
+    justify-content: center;
+    align-items: center;
+  }
+}

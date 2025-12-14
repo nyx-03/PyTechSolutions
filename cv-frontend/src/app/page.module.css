@@ -1,0 +1,11 @@
+.fullpage {
+  height: 100vh; 
+  overflow-y: auto;
+  scroll-snap-type: y mandatory; 
+  scroll-behavior: smooth;
+}
+
+.fullpage > section, 
+.fullpage > footer {
+  scroll-snap-align: start;
+}

@@ -1,0 +1,188 @@
+.expertises {
+  position: relative;
+  overflow: hidden;
+  max-height: calc(100vh - var(--pt-header-height));
+  padding-inline: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.expertises::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.inner {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 3.5rem 2rem;
+  border-radius: 24px;
+  background: radial-gradient(
+      circle at top left,
+      rgba(15, 23, 42, 0.94),
+      rgba(15, 23, 42, 0.97)
+    );
+  border: 1px solid var(--pt-color-border-subtle);
+  backdrop-filter: blur(10px);
+}
+
+.kicker {
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pt-color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.intro {
+  font-size: 0.98rem;
+  color: var(--pt-color-text-muted);
+  max-width: 650px;
+  margin-bottom: 2.5rem;
+}
+
+/* GRILLE DES CARTES */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.8rem;
+}
+
+/* CARTE EXPERTISE */
+
+.card {
+  border-radius: 18px;
+  padding: 1.6rem 1.5rem;
+  border: 1px solid var(--pt-color-border-subtle);
+  background: radial-gradient(
+      circle at top left,
+      rgba(56, 189, 248, 0.12),
+      transparent 55%
+    ),
+    rgba(15, 23, 42, 0.95);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.category {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pt-color-text-muted);
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.text {
+  font-size: 0.9rem;
+  color: var(--pt-color-text-muted);
+}
+
+.list {
+  margin: 0.5rem 0 0.8rem;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--pt-color-text-main);
+}
+
+.stack {
+  margin-top: auto;
+  font-size: 0.85rem;
+  color: var(--pt-color-text-muted);
+  border-top: 1px solid rgba(148, 163, 184, 0.3);
+  padding-top: 0.8rem;
+}
+
+/* HOVER (sans framer pour l'instant) */
+
+.card:hover {
+  border-color: var(--pt-color-primary);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .expertises {
+    min-height: calc(100vh - var(--pt-header-height));
+    align-items: stretch;
+  }
+
+  .inner {
+    max-width: 95%;
+    padding: 2.5rem 1.5rem;
+    max-height: calc(100vh - var(--pt-header-height) - 3rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .title {
+    font-size: 1.6rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .intro {
+    margin-bottom: 1.8rem;
+    font-size: 0.95rem;
+  }
+
+  .text {
+    font-size: 0.9rem;
+  }
+
+  .list {
+    font-size: 0.9rem;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .inner {
+    max-width: 100%;
+    padding: 2.25rem 1.25rem;
+    max-height: calc(100vh - var(--pt-header-height) - 2.5rem);
+  }
+
+  .kicker {
+    font-size: 0.8rem;
+  }
+
+  .title {
+    font-size: 1.45rem;
+  }
+
+  .intro {
+    font-size: 0.9rem;
+  }
+
+  .text,
+  .list {
+    font-size: 0.88rem;
+  }
+}

@@ -1,0 +1,314 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+
+  /* Hauteur fluide : toujours plein écran */
+  min-height: calc(100vh - var(--pt-header-height));
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Halo / gradient d'ambiance */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(15, 23, 42, 0.35), transparent 80%),
+    radial-gradient(circle at 90% 100%, rgba(15, 23, 42, 0.4), transparent 85%),
+    linear-gradient(to bottom, rgba(2, 6, 23, 0.45), rgba(2, 6, 23, 0.15));
+  mix-blend-mode: soft-light;
+}
+
+.heroInner {
+  position: relative; /* pour passer au-dessus du ::before */
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
+    /* Padding fluide selon le viewport */
+  padding-block: clamp(2.5rem, 8vh, 4rem);
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+/* Texte */
+
+.tagline {
+  font-size: clamp(0.8rem, 1.1vw, 0.9rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pt-color-text-muted);
+  margin-bottom: 0.9rem;
+}
+
+.title {
+  font-size: clamp(1.9rem, 3.8vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  max-width: 22ch;
+}
+
+.description {
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  color: var(--pt-color-text-muted);
+  margin-bottom: 1.8rem;
+  max-width: min(600px, 90vw);
+}
+
+/* Chips */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.chip {
+  font-size: clamp(0.78rem, 0.9vw, 0.8rem);
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--pt-color-text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.chipDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    var(--pt-color-primary),
+    var(--pt-color-accent)
+  );
+}
+
+/* Actions */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+/* Bouton principal */
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: linear-gradient(
+    135deg,
+    var(--pt-color-primary),
+    var(--pt-color-accent)
+  );
+  color: #0b1120;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+}
+
+.primaryButton:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 22px 55px rgba(15, 23, 42, 1);
+}
+
+/* Bouton secondaire */
+
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--pt-color-border-subtle);
+  background: transparent;
+  color: var(--pt-color-text-main);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.secondaryButton:hover {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: var(--pt-color-primary);
+  color: var(--pt-color-primary);
+}
+
+/* Scroll indicator */
+
+.scrollIndicator {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pt-color-text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  opacity: 0.8;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 28px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--pt-color-primary),
+    transparent
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.scrollDot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  background: var(--pt-color-primary);
+}
+
+/* Orbit background */
+.orbit {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 999px;
+  border: 1px dashed rgba(148, 163, 184, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.45;
+  pointer-events: none; /* avoid interfering with interactions */
+  mix-blend-mode: screen;
+}
+
+.orbitCore {
+  width: 50px;
+  height: 50px;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    var(--pt-color-primary),
+    transparent 70%
+  );
+  box-shadow: 0 0 30px var(--pt-color-glow-primary);
+  pointer-events: none;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+  .heroInner {
+    align-items: center;
+    text-align: center;
+    padding-block: 3rem;
+  }
+
+  .title {
+    font-size: 1.9rem;
+    max-width: 100%;
+    margin-bottom: 0.9rem;
+  }
+
+  .description {
+    max-width: 100%;
+    margin-bottom: 1.4rem;
+  }
+
+  .chips {
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .orbit {
+    width: 110px;
+    height: 110px;
+    opacity: 0.35;
+  }
+}
+
+@media (max-width: 600px) {
+  .heroInner {
+    padding-block: 2.5rem 2.75rem;
+    padding-inline: 1.4rem;
+  }
+
+  .title {
+    font-size: 1.7rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+  }
+
+  .chips {
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .scrollIndicator {
+    bottom: 1rem;
+    font-size: 0.7rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Largeur fluide des boutons : 100% with max 420px */
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+    max-width: 200px;
+    justify-content: center;
+    padding-block: 0.9rem;
+    font-size: 1rem;
+  }
+
+  .orbit {
+    width: 90px;
+    height: 90px;
+    opacity: 0.28;
+  }
+}

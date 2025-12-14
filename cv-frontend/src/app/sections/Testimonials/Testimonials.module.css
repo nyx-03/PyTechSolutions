@@ -1,0 +1,303 @@
+.testimonials {
+  min-height: calc(100vh - var(--pt-header-height));
+  padding: 4rem 1.5rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background-blend-mode: overlay;
+}
+
+.inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* En-tête */
+
+.kicker {
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pt-color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.intro {
+  font-size: 0.98rem;
+  color: var(--pt-color-text-muted);
+  max-width: 660px;
+  margin-bottom: 2.5rem;
+}
+
+/* Grille de témoignages */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.8rem;
+}
+
+/* Carte “tech” */
+
+.card {
+  border-radius: 18px;
+  border: 1px solid var(--pt-color-border-subtle);
+  background: radial-gradient(
+      circle at top left,
+      rgba(56, 189, 248, 0.12),
+      transparent 60%
+    ),
+    rgba(15, 23, 42, 0.96);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Top barre type fenêtre */
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.9rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  background: linear-gradient(
+    to right,
+    rgba(15, 23, 42, 0.95),
+    rgba(15, 23, 42, 0.8)
+  );
+}
+
+.dots {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.7);
+}
+
+.dots span:nth-child(1) {
+  background: #f97373;
+}
+.dots span:nth-child(2) {
+  background: #facc15;
+}
+.dots span:nth-child(3) {
+  background: #22c55e;
+}
+
+.cardProject {
+  font-size: 0.8rem;
+  color: var(--pt-color-text-muted);
+}
+
+/* Zone type “console” */
+
+.console {
+  padding: 1.2rem 1.1rem 1rem;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.3);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9rem;
+}
+
+.consoleLine {
+  color: var(--pt-color-text-muted);
+  margin-bottom: 0.6rem;
+}
+
+.prompt {
+  color: var(--pt-color-accent);
+}
+
+.command {
+  color: var(--pt-color-primary);
+}
+
+.quote {
+  margin: 0;
+  color: var(--pt-color-text-main);
+  line-height: 1.5;
+}
+
+.quotePrefix {
+  margin-right: 0.4rem;
+  color: var(--pt-color-primary);
+}
+
+/* Footer de la carte */
+
+.cardFooter {
+  padding: 0.9rem 1.1rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--pt-color-primary);
+  background: radial-gradient(
+    circle at center,
+    rgba(56, 189, 248, 0.3),
+    transparent 70%
+  );
+}
+
+.personInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.name {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.role {
+  font-size: 0.8rem;
+  color: var(--pt-color-text-muted);
+}
+
+.stack {
+  font-size: 0.78rem;
+  color: var(--pt-color-text-muted);
+  text-align: right;
+}
+/* Layout carousel */
+
+.carousel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cardWrapper {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Boutons de nav gauche/droite */
+
+.navButton {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.95);
+  color: var(--pt-color-text-main);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.navButton:hover {
+  border-color: var(--pt-color-primary);
+  transform: translateY(-1px);
+}
+
+/* Indicateurs (dots) */
+
+.dotsNav {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+
+  transition:
+    background-color 0.18s ease,
+    transform 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.dotActive {
+  background: radial-gradient(
+    circle at center,
+    var(--pt-color-primary),
+    var(--pt-color-accent)
+  );
+  border-color: var(--pt-color-primary);
+  transform: scale(1.15);
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .carousel {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1rem;
+  }
+
+  .navButton {
+    display: none; /* sur mobile, tu peux compter sur les dots ou ajouter du swipe plus tard */
+  }
+
+  .cardWrapper {
+    max-width: 100%;
+  }
+}
+
+/* Responsive */
+
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .testimonials {
+    min-height: auto;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

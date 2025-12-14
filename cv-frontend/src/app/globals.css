@@ -1,0 +1,63 @@
+:root {
+  --pt-color-bg: #020617;
+  --pt-color-surface: #020617;
+  --pt-color-primary: #06b6d4;
+  --pt-color-accent: #6366f1;
+  --pt-color-text-main: #e5e7eb;
+  --pt-color-text-muted: #9ca3af;
+  --pt-color-border-subtle: rgba(148, 163, 184, 0.45);
+
+  --pt-header-height: 75px;
+  --pt-color-bg-soft: #02081f;
+  --pt-color-grid: rgba(15, 23, 42, 0.7);
+  --pt-color-glow-primary: rgba(6, 182, 212, 0.35);
+  --pt-color-glow-accent: rgba(99, 102, 241, 0.4);
+
+  --pt-bg-hero-top: #020617;
+  --pt-bg-hero-bottom: #05081c;
+  --pt-bg-about-top: #05081c;
+  --pt-bg-about-bottom: #060a21;
+}
+
+html, 
+body {
+  height: 100%; 
+  margin: 0; 
+  padding: 0; 
+  overflow: hidden; 
+}
+
+body {
+  position: relative;
+  display: flex; 
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #020617 url("/fond.jpeg") center/cover fixed;
+  color: var(--pt-color-text-main);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.28;
+  background-size: 42px 42px;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+}
+
+main {
+  flex-grow: 1;
+}

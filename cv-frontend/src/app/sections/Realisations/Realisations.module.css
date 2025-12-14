@@ -1,0 +1,242 @@
+.realisations {
+  min-height: calc(100vh - var(--pt-header-height));
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+
+  padding-inline: 1.5rem;
+  background-blend-mode: overlay;
+}
+
+.inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-block: 4rem;
+}
+
+/* Texte de section */
+
+.kicker {
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pt-color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.intro {
+  font-size: 0.98rem;
+  color: var(--pt-color-text-muted);
+  max-width: 660px;
+  margin-bottom: 2.4rem;
+}
+
+/* --- CAROUSEL --- */
+
+.carousel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cardWrapper {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Boutons de navigation gauche / droite */
+
+.navButton {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.95);
+  color: var(--pt-color-text-main);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.navButton:hover {
+  border-color: var(--pt-color-primary);
+  transform: translateY(-1px);
+}
+
+/* --- CARD --- */
+
+.card {
+  border-radius: 18px;
+  padding: 1.6rem;
+  border: 1px solid var(--pt-color-border-subtle);
+  background: rgba(15, 23, 42, 0.92);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+
+  transition: border-color 0.25s ease;
+}
+
+.card:hover {
+  border-color: var(--pt-color-primary);
+}
+
+/* meta */
+
+.type {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pt-color-text-muted);
+}
+
+.cardTitle {
+  font-weight: 600;
+  font-size: 1.15rem;
+}
+
+.description {
+  font-size: 0.92rem;
+  color: var(--pt-color-text-muted);
+}
+
+/* Impact */
+
+.resultBlock {
+  border-top: 1px solid rgba(148, 163, 184, 0.3);
+  padding-top: 1rem;
+}
+
+.resultLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pt-color-text-muted);
+  margin-bottom: 0.2rem;
+}
+
+.result {
+  font-size: 0.9rem;
+  color: var(--pt-color-text-main);
+}
+
+/* tech & status */
+
+.meta {
+  margin-top: auto;
+  border-top: 1px solid rgba(148, 163, 184, 0.3);
+  padding-top: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.stack {
+  font-size: 0.78rem;
+  color: var(--pt-color-text-muted);
+}
+
+.status {
+  font-size: 0.78rem;
+  color: var(--pt-color-accent);
+}
+
+/* --- DOTS NAV --- */
+
+.dotsNav {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-bottom: 2rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+
+  transition:
+    background-color 0.18s ease,
+    transform 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.dotActive {
+  background: radial-gradient(
+    circle at center,
+    var(--pt-color-primary),
+    var(--pt-color-accent)
+  );
+  border-color: var(--pt-color-primary);
+  transform: scale(1.15);
+}
+
+/* --- FOOTER CTA --- */
+
+.footer {
+  margin-top: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cta {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--pt-color-primary);
+  color: var(--pt-color-primary);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.cta:hover {
+  background-color: var(--pt-color-primary);
+  color: #0b1120;
+}
+
+/* --- RESPONSIVE --- */
+
+@media (max-width: 900px) {
+  .realisations {
+    min-height: auto;
+  }
+
+  .inner {
+    padding-block: 3rem;
+  }
+
+  .carousel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .navButton {
+    display: none;
+  }
+
+  .cardWrapper {
+    max-width: 100%;
+  }
+}
