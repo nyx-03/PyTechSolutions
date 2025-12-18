@@ -1,6 +1,5 @@
 .testimonials {
   min-height: calc(100vh - var(--pt-header-height));
-  padding: 4rem 1.5rem;
   display: flex;
   align-items: center;
   position: relative;

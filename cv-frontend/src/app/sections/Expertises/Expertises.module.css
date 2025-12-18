@@ -1,7 +1,7 @@
 .expertises {
   position: relative;
   overflow: hidden;
-  max-height: calc(100vh - var(--pt-header-height));
+  min-height: calc(100vh - var(--pt-header-height));
   padding-inline: 1.5rem;
   display: flex;
   align-items: center;

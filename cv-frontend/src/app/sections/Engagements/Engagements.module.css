@@ -1,6 +1,5 @@
 .engagements {
-  min-height: calc(100vh - 175px);
-  padding: 4rem 1.5rem;
+  min-height: calc(100vh - var(--pt-header-height));
   display: flex;
   align-items: center;
   position: relative;
