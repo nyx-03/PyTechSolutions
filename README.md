@@ -67,25 +67,72 @@ La structure est amenée à évoluer, tout comme les fonctionnalités et le cont
 
 ---
 
-## 🛠️ Installation locale (aperçu)
+## 🔐 Configuration des variables d’environnement
 
-> ⚠️ Documentation détaillée à venir
+Le backend Django utilise des **variables d’environnement** pour la configuration sensible (mode debug, clé secrète, CORS, etc.).
 
-### Backend
+En local, un fichier `.env` peut être utilisé.
+
+### Backend (`cv-backend/.env`)
+
+Créer un fichier `.env` à partir de l’exemple :
+
+```bash
+cp .env.example .env
+```
+
+Exemple de contenu :
+
+```env
+DJANGO_DEBUG=true
+DJANGO_SECRET_KEY=django-insecure-change-me
+DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
+
+CORS_ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+CSRF_TRUSTED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+```
+
+⚠️ **Ne jamais committer le fichier `.env`** (il est ignoré par `.gitignore`).
+
+---
+
+## 🛠️ Installation locale
+
+### Pré-requis
+- Python **3.12+**
+- Node.js **18+**
+- npm ou yarn
+
+---
+
+### Backend (Django)
+
 ```bash
 cd cv-backend
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+python manage.py migrate
 python manage.py runserver
 ```
 
-### Frontend
+Le backend est alors accessible sur :
+
+👉 http://127.0.0.1:8000/
+
+---
+
+### Frontend (Next.js)
+
 ```bash
 cd cv-frontend
 npm install
 npm run dev
 ```
+
+Le frontend est accessible sur :
+
+👉 http://localhost:3000/
 
 ---
 
