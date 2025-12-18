@@ -1,5 +1,35 @@
 /* app/components/ScrollProgress/ScrollProgress.module.css */
 
+/* ==============================
+   Fullpage scroll container (ex page.module.css)
+   ============================== */
+
+.fullpage {
+  /* Keep header visible; scroll happens inside the main container */
+  height: calc(100vh - var(--pt-header-height));
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* Smooth scrolling for programmatic scrollIntoView */
+  scroll-behavior: smooth;
+
+  /* iOS momentum scrolling */
+  -webkit-overflow-scrolling: touch;
+
+  /* Prevent horizontal layout shifts */
+  position: relative;
+  width: 100%;
+}
+
+/* Optional: snap per section for a consistent narrative scroll */
+.fullpage :global(section) {
+  scroll-snap-align: start;
+}
+
+.fullpage {
+  scroll-snap-type: y mandatory;
+}
+
 .wrapper {
   position: fixed;
   right: 2rem;

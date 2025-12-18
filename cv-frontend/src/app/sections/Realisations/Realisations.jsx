@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import styles from "./Realisations.module.css";
 import {
   fadeInUpContainer,
@@ -102,7 +103,7 @@ export default function Realisations() {
                 exit={{ opacity: 0, x: -40 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
               >
-                <p className={styles.type}>{current.type}</p>
+                <span className={styles.type}>{current.type}</span>
                 <h3 className={styles.cardTitle}>{current.name}</h3>
 
                 <p className={styles.description}>{current.description}</p>
@@ -115,8 +116,8 @@ export default function Realisations() {
                 )}
 
                 <div className={styles.meta}>
-                  <p className={styles.stack}>{current.stack}</p>
-                  <p className={styles.status}>{current.status}</p>
+                  <span className={styles.stack}>{current.stack}</span>
+                  <span className={styles.status}>{current.status}</span>
                 </div>
               </motion.article>
             </AnimatePresence>
@@ -153,9 +154,9 @@ export default function Realisations() {
             Vous souhaitez voir comment ces approches pourraient s&apos;adapter
             à votre activité&nbsp;?
           </p>
-          <a href="/contact" className={styles.cta}>
+          <Link href="/contact" className={styles.cta}>
             Discuter de mon projet
-          </a>
+          </Link>
         </motion.div>
       </motion.div>
     </motion.section>

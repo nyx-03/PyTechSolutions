@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import styles from "./page.module.css";
 import ScrollProgress from "@/components/ScrollProgress/ScrollProgress";
+import styles from "@/components/ScrollProgress/ScrollProgress.module.css"
 
 const SECTION_LABELS = [
   "Accueil",

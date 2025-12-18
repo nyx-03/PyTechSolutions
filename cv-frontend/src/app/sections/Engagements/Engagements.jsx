@@ -35,7 +35,7 @@ export default function Engagements() {
         <motion.p className={styles.kicker} variants={fadeInUpItem}>
           Engagements
         </motion.p>
-        <motion.h2 className={styles.kicker} variants={fadeInUpItem}>
+        <motion.h2 className={styles.title} variants={fadeInUpItem}>
           ce que vous pouvez attendre de PyTechSolutions.
         </motion.h2>
         <motion.p className={styles.intro} variants={fadeInUpItem}>

@@ -1,8 +1,9 @@
+/* Expertises – harmonized with globals.css tokens and ui.module.css */
 .expertises {
   position: relative;
   overflow: hidden;
   min-height: calc(100vh - var(--pt-header-height));
-  padding-inline: 1.5rem;
+  padding-inline: var(--pt-space-4);
   display: flex;
   align-items: center;
 }
@@ -15,39 +16,33 @@
 }
 
 .inner {
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 3.5rem 2rem;
-  border-radius: 24px;
+  composes: container panel from "@/styles/ui.module.css";
+  padding: var(--pt-space-7) var(--pt-space-6);
+  border-radius: var(--pt-radius-lg);
   background: radial-gradient(
       circle at top left,
       rgba(15, 23, 42, 0.94),
       rgba(15, 23, 42, 0.97)
     );
-  border: 1px solid var(--pt-color-border-subtle);
-  backdrop-filter: blur(10px);
 }
 
 .kicker {
-  font-size: 0.85rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  composes: kicker from "@/styles/ui.module.css";
   color: var(--pt-color-text-muted);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--pt-space-2);
 }
 
 .title {
+  composes: sectionTitle from "@/styles/ui.module.css";
   font-size: 1.8rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: var(--pt-space-3);
 }
 
 .intro {
-  font-size: 0.98rem;
+  composes: text containerText from "@/styles/ui.module.css";
   color: var(--pt-color-text-muted);
-  max-width: 650px;
-  margin-bottom: 2.5rem;
+  margin-bottom: var(--pt-space-6);
 }
 
 /* GRILLE DES CARTES */
@@ -55,15 +50,15 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.8rem;
+  gap: var(--pt-space-5);
 }
 
 /* CARTE EXPERTISE */
 
 .card {
-  border-radius: 18px;
-  padding: 1.6rem 1.5rem;
-  border: 1px solid var(--pt-color-border-subtle);
+  composes: card from "@/styles/ui.module.css";
+  padding: var(--pt-space-5) var(--pt-space-4);
+  border-radius: var(--pt-radius-md);
   background: radial-gradient(
       circle at top left,
       rgba(56, 189, 248, 0.12),
@@ -76,38 +71,35 @@
 }
 
 .category {
+  composes: kicker from "@/styles/ui.module.css";
   font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--pt-color-text-muted);
 }
 
 .cardTitle {
+  composes: sectionTitle from "@/styles/ui.module.css";
   font-size: 1.1rem;
-  font-weight: 600;
 }
 
 .text {
-  font-size: 0.9rem;
-  color: var(--pt-color-text-muted);
+  composes: text from "@/styles/ui.module.css";
 }
 
 .list {
-  margin: 0.5rem 0 0.8rem;
+  margin: var(--pt-space-2) 0 var(--pt-space-4);
   padding-left: 1.1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: var(--pt-space-1);
   font-size: 0.9rem;
   color: var(--pt-color-text-main);
 }
 
 .stack {
   margin-top: auto;
-  font-size: 0.85rem;
+  font-size: var(--pt-text-sm);
   color: var(--pt-color-text-muted);
-  border-top: 1px solid rgba(148, 163, 184, 0.3);
-  padding-top: 0.8rem;
+  border-top: var(--pt-border);
+  padding-top: var(--pt-space-2);
 }
 
 /* HOVER (sans framer pour l'instant) */
@@ -132,19 +124,19 @@
 
   .inner {
     max-width: 95%;
-    padding: 2.5rem 1.5rem;
-    max-height: calc(100vh - var(--pt-header-height) - 3rem);
+    padding: var(--pt-space-5) var(--pt-space-4);
+    max-height: calc(100vh - var(--pt-header-height) - var(--pt-space-6));
     overflow-y: auto;
     overscroll-behavior: contain;
   }
 
   .title {
     font-size: 1.6rem;
-    margin-bottom: 0.9rem;
+    margin-bottom: var(--pt-space-3);
   }
 
   .intro {
-    margin-bottom: 1.8rem;
+    margin-bottom: var(--pt-space-5);
     font-size: 0.95rem;
   }
 
@@ -158,15 +150,15 @@
 
   .grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: 1.6rem;
+    gap: var(--pt-space-4);
   }
 }
 
 @media (max-width: 500px) {
   .inner {
     max-width: 100%;
-    padding: 2.25rem 1.25rem;
-    max-height: calc(100vh - var(--pt-header-height) - 2.5rem);
+    padding: var(--pt-space-4) var(--pt-space-3);
+    max-height: calc(100vh - var(--pt-header-height) - var(--pt-space-5));
   }
 
   .kicker {

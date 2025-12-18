@@ -106,7 +106,7 @@ export default function Testimonials() {
                     <span />
                     <span />
                   </div>
-                  <p className={styles.cardProject}>{current.project}</p>
+                  <span className={styles.cardProject}>{current.project}</span>
                 </div>
 
                 {/* Zone “console” */}
@@ -128,13 +128,13 @@ export default function Testimonials() {
                       <span>{current.name.charAt(0)}</span>
                     </div>
                     <div className={styles.personInfo}>
-                      <p className={styles.name}>{current.name}</p>
-                      <p className={styles.role}>
+                      <h3 className={styles.name}>{current.name}</h3>
+                      <span className={styles.role}>
                         {current.company} · {current.role}
-                      </p>
+                      </span>
                     </div>
                   </div>
-                  <p className={styles.stack}>{current.stack}</p>
+                  <span className={styles.stack}>{current.stack}</span>
                 </div>
               </motion.article>
             </AnimatePresence>

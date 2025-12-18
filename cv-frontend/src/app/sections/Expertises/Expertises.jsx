@@ -18,7 +18,7 @@ const EXPERTISES = [
     stack: "Python · Django · PostgreSQL",
   },
   {
-    category: "Interface web modernes",
+    category: "Interfaces web modernes",
     title: "Des interfaces claires, rapides et agréables",
     text: "Création de sites et applications web avec une vraie attention portée à l'expérience utilisateur",
     points: [
@@ -33,7 +33,7 @@ const EXPERTISES = [
     title: "Gagner du temps sans changer tout votre système",
     text: "Mise en place d'automatisation ciblées et d'outils internes qui vous font gagner des heures chaque semaine.",
     points: [
-      "Scripts Python pour vos tâches réccurentes",
+      "Scripts Python pour vos tâches récurrentes",
       "Connecteurs entre vos outils (CRM, facturation, e-commerce...)",
       "Dashboard ou mini-interfaces pour piloter vos données",
     ],
@@ -74,7 +74,7 @@ export default function Expertises() {
                 variants={fadeInUpItem}
                 whileHover={{ y: -4, scale: 1.02}}
                 transition={{ type: "spring", stiffness: 260, damping: 20}}>
-                    <p className={styles.category}>{item.category}</p>
+                    <span className={styles.category}>{item.category}</span>
                     <h3 className={styles.cardTitle}>{item.title}</h3>
                     <p className={styles.text}>{item.text}</p>
                     <ul className={styles.list}>

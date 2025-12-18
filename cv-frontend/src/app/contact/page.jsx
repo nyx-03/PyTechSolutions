@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import styles from "./contact.module.css";
+import ui from "@/styles/ui.module.css"
 
 export default function ContactPage() {
   const [form, setForm] = useState({
@@ -98,7 +99,7 @@ export default function ContactPage() {
           <button
             type="submit"
             disabled={status === "loading"}
-            className={styles.submitButton}
+            className={`${ui.button} ${ui.buttonPrimary} ${ui.buttonPill} ${styles.submitButton}`}
           >
             {status === "loading" ? "Envoi…" : "Envoyer le message"}
           </button>

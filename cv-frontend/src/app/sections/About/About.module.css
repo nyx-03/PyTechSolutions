@@ -1,55 +1,51 @@
+/* About – harmonized with globals.css tokens and ui.module.css */
 /* SECTION GLOBALE */
 .about {
   position: relative;
   min-height: calc(100vh - var(--pt-header-height));
-  padding-inline: 1.5rem;
+  padding-inline: var(--pt-space-4);
   display: flex;
   align-items: center;
   overflow: hidden;
 }
 
 .aboutInner {
-  max-width: 1100px;
+  composes: container panel from "@/styles/ui.module.css";
   width: 100%;
-  margin: 0 auto;
-  padding: 3.5rem 2rem;
-  border-radius: 24px;
+  padding: var(--pt-space-7) var(--pt-space-6);
+  border-radius: var(--pt-radius-lg);
   background: radial-gradient(
       circle at top left,
       rgba(15, 23, 42, 0.94),
       rgba(15, 23, 42, 0.97)
     );
-  border: 1px solid var(--pt-color-border-subtle);
-  backdrop-filter: blur(10px);
 }
 
 /* TITRES & INTRO */
 .kicker {
-  font-size: 0.85rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  composes: kicker from "@/styles/ui.module.css";
   color: var(--pt-color-text-muted);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--pt-space-2);
 }
 
 .title {
+  composes: sectionTitle from "@/styles/ui.module.css";
   font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: var(--pt-space-4);
 }
 
 .intro {
-  font-size: 0.98rem;
+  composes: text containerText from "@/styles/ui.module.css";
   color: var(--pt-color-text-muted);
-  max-width: 650px;
-  margin-bottom: 2rem;
+  margin-bottom: var(--pt-space-6);
 }
 
 /* GRID PRINCIPALE */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1.8fr;
-  gap: 2.5rem;
+  gap: var(--pt-space-6);
   align-items: start;
 }
 
@@ -57,14 +53,14 @@
 
 .founderCard {
   position: relative;
-  border-radius: 20px;
-  padding: 1.5rem;
-  border: 1px solid var(--pt-color-border-subtle);
-  background: rgba(15, 23, 42, 0.3);
+  composes: panel from "@/styles/ui.module.css";
+  border-radius: var(--pt-radius-md);
+  padding: var(--pt-space-4);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  background: rgba(15, 23, 42, 0.3);
 }
 .founderCard::before {
   content: "";
@@ -103,10 +99,10 @@
   width: 140px;
   height: 140px;
   position: relative;
-  border-radius: 999px;
+  border-radius: var(--pt-radius-pill);
   overflow: hidden;
   border: 1px solid rgba(148, 163, 184, 0.5);
-  margin-bottom: 1rem;
+  margin-bottom: var(--pt-space-3);
 }
 
 /* Image next/image va remplir le conteneur tout en gardant les proportions */
@@ -118,42 +114,37 @@
 
 /* TEXTE FONDATEUR */
 .founderName {
-  font-weight: 600;
+  composes: sectionTitle from "@/styles/ui.module.css";
   font-size: 1.1rem;
   margin-bottom: 0.2rem;
 }
 
 .founderRole {
-  font-size: 0.9rem;
+  font-size: var(--pt-text-sm);
   color: var(--pt-color-text-muted);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--pt-space-2);
 }
 
 .founderText {
-  font-size: 0.9rem;
-  color: var(--pt-color-text-main);
+  composes: text from "@/styles/ui.module.css";
+  font-size: var(--pt-text-sm);
 }
 
 /* === CONTENU À DROITE === */
 .content {
-  font-size: 0.95rem;
-  color: var(--pt-color-text-main);
+  composes: text from "@/styles/ui.module.css";
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--pt-space-3);
 }
 
 .bullets {
   list-style: none;
   padding: 0;
-  margin: 0.8rem 0 0;
+  margin: var(--pt-space-3) 0 0;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-}
-
-.bullets li span {
-  font-weight: 600;
+  gap: var(--pt-space-2);
 }
 
 /* === RESPONSIVE === */
@@ -166,19 +157,19 @@
 
   .aboutInner {
     max-width: 95%;
-    padding: 2.5rem 1.5rem;
-    max-height: calc(100vh - var(--pt-header-height) - 3rem);
+    padding: var(--pt-space-6) var(--pt-space-4);
+    max-height: calc(100vh - var(--pt-header-height) - var(--pt-space-6));
     overflow-y: auto;
     overscroll-behavior: contain;
   }
 
   .title {
     font-size: 1.6rem;
-    margin-bottom: 0.9rem;
+    margin-bottom: var(--pt-space-3);
   }
 
   .intro {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--pt-space-5);
   }
 
   .content {
@@ -187,12 +178,12 @@
 
   .grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: var(--pt-space-5);
   }
 
   .founderCard {
     max-width: 300px;
-    margin: 0 auto 2rem;
+    margin: 0 auto var(--pt-space-6);
   }
 }
 

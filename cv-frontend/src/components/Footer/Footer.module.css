@@ -1,25 +1,26 @@
+/* Footer – harmonized with globals.css tokens and ui.module.css */
 .footer {
-  border-top: 1px solid var(--pt-color-border-subtle);
+  border-top: var(--pt-border);
   background: rgba(2, 6, 23, 0.9);
-  padding: 1.2rem 2rem;
+  padding: var(--pt-space-4) var(--pt-space-6);
   min-height: 80px; 
 }
 
 .footerInner {
-  max-width: 1300px;
+  max-width: var(--pt-max-w);
   width: 100%; 
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 2rem;
+  gap: var(--pt-space-6);
   align-items: center;
-  font-size: 0.85rem;
+  font-size: var(--pt-text-sm);
 }
 
 /* Bloc brand */
 .footerBrandName {
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: var(--pt-text-sm);
 }
 
 .footerTagline {
@@ -31,13 +32,13 @@
 .footerNav {
   display: flex;
   justify-content: center;
-  gap: 1.2rem;
+  gap: var(--pt-space-4);
 }
 
 .footerNav a {
   text-decoration: none;
   color: var(--pt-color-text-muted);
-  transition: color 0.15s ease;
+  transition: color var(--pt-t-fast);
 }
 
 .footerNav a:hover {
@@ -49,19 +50,19 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.5rem;
+  gap: var(--pt-space-2);
 }
 
 .socials {
   display: flex;
-  gap: 0.8rem;
+  gap: var(--pt-space-2);
   flex-wrap: wrap;
 }
 
 .socials a {
   text-decoration: none;
   color: var(--pt-color-text-muted);
-  transition: color 0.15s ease;
+  transition: color var(--pt-t-fast);
 }
 
 .socials a:hover {
@@ -76,7 +77,7 @@
 /* Responsive */
 @media (max-width: 800px) {
   .footer {
-    padding: 1rem 1.2rem;
+    padding: var(--pt-space-3) var(--pt-space-4);
   }
 
   .footerInner {
@@ -85,7 +86,7 @@
   }
 
   .footerInner > * + * {
-    margin-top: 1rem;
+    margin-top: var(--pt-space-3);
   }
 
   .footerMeta {

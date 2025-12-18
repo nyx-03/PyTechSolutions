@@ -17,6 +17,84 @@
   --pt-bg-hero-bottom: #05081c;
   --pt-bg-about-top: #05081c;
   --pt-bg-about-bottom: #060a21;
+
+  /* Spacing scale */
+  --pt-space-1: 6px;
+  --pt-space-2: 10px;
+  --pt-space-3: 14px;
+  --pt-space-4: 18px;
+  --pt-space-5: 24px;
+  --pt-space-6: 32px;
+  --pt-space-7: 44px;
+  --pt-space-8: 64px;
+
+  /* Radii */
+  --pt-radius-sm: 10px;
+  --pt-radius-md: 16px;
+  --pt-radius-lg: 24px;
+  --pt-radius-pill: 999px;
+
+  /* Surfaces / glass */
+  --pt-surface-glass: rgba(0, 0, 0, 0.25);
+  --pt-surface-glass-strong: rgba(0, 0, 0, 0.35);
+  --pt-surface-soft: rgba(255, 255, 255, 0.03);
+  --pt-surface-soft-strong: rgba(255, 255, 255, 0.06);
+
+  /* Borders */
+  --pt-border: 1px solid var(--pt-color-border-subtle);
+  --pt-border-strong: 1px solid rgba(255, 255, 255, 0.22);
+
+  /* Backdrop blur */
+  --pt-blur: blur(10px);
+
+  /* Typography */
+  --pt-text-xs: 12px;
+  --pt-text-sm: 14px;
+  --pt-text-md: 16px;
+  --pt-text-lg: 18px;
+  --pt-text-xl: 20px;
+  --pt-text-2xl: 34px;
+  --pt-leading-tight: 1.2;
+  --pt-leading-normal: 1.5;
+  --pt-leading-relaxed: 1.6;
+  --pt-tracking-tight: 0.2px;
+  --pt-tracking-normal: 0.3px;
+
+  /* Layout widths */
+  --pt-max-w: 1100px;
+  --pt-max-w-narrow: 900px;
+  --pt-max-w-text: 720px;
+
+  /* Motion */
+  --pt-ease: ease;
+  --pt-t-fast: 0.2s var(--pt-ease);
+  --pt-t-med: 0.3s var(--pt-ease);
+
+  /* Focus */
+  --pt-focus-ring: 0 0 0 3px rgba(6, 182, 212, 0.25);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.9;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--pt-focus-ring);
+  border-radius: var(--pt-radius-sm);
 }
 
 html, 

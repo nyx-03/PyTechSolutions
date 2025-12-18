@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./realisations.module.css";
+import ui from "@/styles/ui.module.css";
 
 const PROJECTS = [
   {
@@ -103,7 +104,7 @@ export default function RealisationsPage() {
           Discutons de ton contexte et des objectifs : audit, développement,
           refonte, ou accompagnement.
         </p>
-        <Link href="/contact" className={styles.ctaButton}>
+        <Link href="/contact" className={`${ui.button} ${ui.buttonPrimary} ${ui.buttonPill} ${styles.ctaButton}`}>
           Me contacter
           <span aria-hidden="true">→</span>
         </Link>

@@ -1,3 +1,4 @@
+/* Testimonials – harmonized with globals.css tokens and ui.module.css */
 .testimonials {
   min-height: calc(100vh - var(--pt-header-height));
   display: flex;
@@ -5,34 +6,32 @@
   position: relative;
   overflow: hidden;
   background-blend-mode: overlay;
+  padding-inline: var(--pt-space-4);
 }
 
 .inner {
-  max-width: 1100px;
-  margin: 0 auto;
+  composes: container from "@/styles/ui.module.css";
 }
 
 /* En-tête */
 
 .kicker {
-  font-size: 0.85rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  composes: kicker from "@/styles/ui.module.css";
   color: var(--pt-color-text-muted);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--pt-space-2);
 }
 
 .title {
+  composes: sectionTitle from "@/styles/ui.module.css";
   font-size: 1.8rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: var(--pt-space-3);
 }
 
 .intro {
-  font-size: 0.98rem;
+  composes: text containerText from "@/styles/ui.module.css";
   color: var(--pt-color-text-muted);
-  max-width: 660px;
-  margin-bottom: 2.5rem;
+  margin-bottom: var(--pt-space-6);
 }
 
 /* Grille de témoignages */
@@ -40,14 +39,14 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.8rem;
+  gap: var(--pt-space-5);
 }
 
 /* Carte “tech” */
 
 .card {
+  composes: card from "@/styles/ui.module.css";
   border-radius: 18px;
-  border: 1px solid var(--pt-color-border-subtle);
   background: radial-gradient(
       circle at top left,
       rgba(56, 189, 248, 0.12),
@@ -65,8 +64,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 0.9rem;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  padding: var(--pt-space-2) var(--pt-space-3);
+  border-bottom: var(--pt-border);
   background: linear-gradient(
     to right,
     rgba(15, 23, 42, 0.95),
@@ -104,16 +103,16 @@
 /* Zone type “console” */
 
 .console {
-  padding: 1.2rem 1.1rem 1rem;
+  padding: var(--pt-space-4) var(--pt-space-4) var(--pt-space-3);
   border-bottom: 1px dashed rgba(148, 163, 184, 0.3);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
-  font-size: 0.9rem;
+  font-size: var(--pt-text-sm);
 }
 
 .consoleLine {
   color: var(--pt-color-text-muted);
-  margin-bottom: 0.6rem;
+  margin-bottom: var(--pt-space-2);
 }
 
 .prompt {
@@ -138,11 +137,11 @@
 /* Footer de la carte */
 
 .cardFooter {
-  padding: 0.9rem 1.1rem 1rem;
+  padding: var(--pt-space-3) var(--pt-space-4) var(--pt-space-4);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.8rem;
+  gap: var(--pt-space-3);
 }
 
 .person {
@@ -154,7 +153,7 @@
 .avatar {
   width: 32px;
   height: 32px;
-  border-radius: 999px;
+  border-radius: var(--pt-radius-pill);
   border: 1px solid rgba(148, 163, 184, 0.7);
   display: flex;
   align-items: center;
@@ -176,17 +175,17 @@
 }
 
 .name {
-  font-size: 0.9rem;
+  font-size: var(--pt-text-sm);
   font-weight: 600;
 }
 
 .role {
-  font-size: 0.8rem;
+  font-size: var(--pt-text-xs);
   color: var(--pt-color-text-muted);
 }
 
 .stack {
-  font-size: 0.78rem;
+  font-size: var(--pt-text-xs);
   color: var(--pt-color-text-muted);
   text-align: right;
 }
@@ -196,8 +195,8 @@
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: var(--pt-space-3);
+  margin-bottom: var(--pt-space-5);
 }
 
 .cardWrapper {
@@ -210,8 +209,8 @@
 .navButton {
   width: 32px;
   height: 32px;
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.6);
+  border-radius: var(--pt-radius-pill);
+  border: var(--pt-border);
   background: rgba(15, 23, 42, 0.95);
   color: var(--pt-color-text-main);
   font-size: 1.2rem;
@@ -221,9 +220,9 @@
   cursor: pointer;
 
   transition:
-    background-color 0.18s ease,
-    border-color 0.18s ease,
-    transform 0.18s ease;
+    background-color var(--pt-t-fast),
+    border-color var(--pt-t-fast),
+    transform var(--pt-t-fast);
 }
 
 .navButton:hover {
@@ -236,7 +235,7 @@
 .dotsNav {
   display: flex;
   justify-content: center;
-  gap: 0.4rem;
+  gap: var(--pt-space-1);
 }
 
 .dot {
@@ -292,8 +291,8 @@
 @media (max-width: 700px) {
   .testimonials {
     min-height: auto;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: var(--pt-space-7);
+    padding-bottom: var(--pt-space-7);
   }
 
   .grid {

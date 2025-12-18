@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 
 import styles from "./CallToAction.module.css"
+import ui from "@/styles/ui.module.css";
 import { fadeInUpContainer, fadeInUpItem } from "@/lib/animations/variants"
 
 export default function CallToAction() {
@@ -40,9 +41,9 @@ export default function CallToAction() {
                 className={styles.actions}
                 variants={fadeInUpItem}
                 >
-                    <Link href="/contact" className={styles.primaryButton}>
+                    <Link href="/contact" className={`${ui.button} ${styles.primaryButton}`}>
                     Discuter de mon projet</Link>
-                    <Link href="/realisations" className={styles.secondaryLink}>
+                    <Link href="/realisations" className={`${ui.button} ${ui.buttonGhost} ${styles.secondaryLink}`}>
                     Voir quelques réalisations
                     </Link>
                 </motion.div>

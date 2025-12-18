@@ -1,6 +1,8 @@
+/* CallToAction – harmonized with globals.css tokens and ui.module.css */
 .ctaSection {
   min-height: calc(100vh - 175px);
-  padding: 4rem 1.5rem 5rem;
+  padding: var(--pt-space-8) var(--pt-space-4) calc(var(--pt-space-8) + var(--pt-space-2));
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,23 +18,23 @@
 }
 
 .kicker {
-  font-size: 0.8rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  composes: kicker from "@/styles/ui.module.css";
   color: var(--pt-color-text-muted);
-  margin-bottom: 0.6rem;
+  margin-bottom: var(--pt-space-2);
 }
 
 .title {
-  font-size: 2rem;
+  margin-bottom: var(--pt-space-3);
   font-weight: 600;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  letter-spacing: var(--pt-tracking-normal);
 }
 
 .text {
+  composes: text from "@/styles/ui.module.css";
   font-size: 0.98rem;
   color: var(--pt-color-text-muted);
-  margin-bottom: 2rem;
+  margin-bottom: var(--pt-space-7);
 }
 
 /* Actions */
@@ -41,8 +43,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: var(--pt-space-4);
+  margin-bottom: var(--pt-space-5);
 }
 
 .primaryButton {
@@ -50,7 +52,7 @@
   align-items: center;
   justify-content: center;
   padding: 0.9rem 1.8rem;
-  border-radius: 999px;
+  border-radius: var(--pt-radius-pill);
   border: 1px solid transparent;
   background: linear-gradient(
     135deg,
@@ -63,7 +65,7 @@
   text-decoration: none;
   cursor: pointer;
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  transition: transform var(--pt-t-fast), box-shadow var(--pt-t-fast), filter var(--pt-t-fast);
 }
 
 .primaryButton:hover {
@@ -78,7 +80,7 @@
   text-decoration: none;
   border-bottom: 1px solid transparent;
   padding-bottom: 0.1rem;
-  transition: color 0.18s ease, border-color 0.18s ease;
+  transition: color var(--pt-t-fast), border-color var(--pt-t-fast);
 }
 
 .secondaryLink:hover {
@@ -87,7 +89,7 @@
 }
 
 .note {
-  font-size: 0.85rem;
+  font-size: var(--pt-text-sm);
   color: var(--pt-color-text-muted);
 }
 
@@ -96,8 +98,8 @@
 @media (max-width: 700px) {
   .ctaSection {
     min-height: auto;
-    padding-top: 3rem;
-    padding-bottom: 3.5rem;
+    padding-top: var(--pt-space-7);
+    padding-bottom: var(--pt-space-7);
   }
 
   .title {

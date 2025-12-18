@@ -1,164 +1,80 @@
-/* Page layout */
-.page {
-  min-height: 100vh;
-  padding: 96px 18px 64px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* Hero section */
-.hero {
-  margin-bottom: 32px;
-}
-
-.title {
-  margin: 0;
-  font-size: 34px;
-  letter-spacing: 0.3px;
-}
-
-.subtitle {
-  margin-top: 12px;
-  opacity: 0.9;
-  line-height: 1.6;
-  max-width: 720px;
-}
+/* Composed from shared UI primitives (ui.module.css) */
 
 /* Grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
-  margin-top: 18px;
+  gap: var(--pt-space-3);
+  margin-top: var(--pt-space-4);
 }
 
-/* Project card */
+.page {
+  composes: page pageWide from "@/styles/ui.module.css";
+}
+
+.hero {
+  composes: hero from "@/styles/ui.module.css";
+}
+
+.title {
+  composes: title from "@/styles/ui.module.css";
+}
+
+.subtitle {
+  composes: subtitle containerText from "@/styles/ui.module.css";
+}
+
 .card {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-height: 190px;
-
-  padding: 18px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.25);
-
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  transition: transform 0.2s ease, border-color 0.2s ease,
-    background-color 0.2s ease;
-}
-
-.card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.22);
-  background: rgba(0, 0, 0, 0.32);
+  composes: card from "@/styles/ui.module.css";
 }
 
 .cardHeader {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--pt-space-2);
 }
 
 .cardTitle {
-  margin: 0;
-  font-size: 18px;
-  letter-spacing: 0.2px;
+  composes: sectionTitle from "@/styles/ui.module.css";
 }
 
 .cardDescription {
-  margin: 0;
-  line-height: 1.5;
-  opacity: 0.85;
+  composes: text from "@/styles/ui.module.css";
 }
 
-/* Tags */
 .tagList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  composes: tagList from "@/styles/ui.module.css";
   margin-top: auto;
 }
 
 .tag {
-  display: inline-block;
-  padding: 6px 10px;
-  font-size: 12px;
-  line-height: 1;
-  letter-spacing: 0.2px;
-
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.04);
+  composes: tag from "@/styles/ui.module.css";
 }
 
-/* Card action */
 .cardLink {
-  margin-top: 12px;
+  margin-top: var(--pt-space-3);
 }
 
 .cardAction {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
+  composes: button buttonGhost from "@/styles/ui.module.css";
   font-weight: 600;
-  text-decoration: none;
-
-  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.cardAction:hover {
-  opacity: 0.85;
-  transform: translateX(2px);
-}
-
-/* CTA */
 .cta {
-  margin-top: 44px;
-  padding: 20px;
-
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
+  composes: panel panelSoft from "@/styles/ui.module.css";
+  margin-top: var(--pt-space-7);
 }
 
 .ctaTitle {
-  margin: 0;
-  font-size: 20px;
+  composes: sectionTitle from "@/styles/ui.module.css";
 }
 
 .ctaText {
-  margin-top: 10px;
-  line-height: 1.6;
-  opacity: 0.9;
-  max-width: 640px;
+  composes: text containerText from "@/styles/ui.module.css";
+  margin-top: var(--pt-space-3);
 }
 
 .ctaButton {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-
-  margin-top: 12px;
-  padding: 10px 14px;
-
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(0, 0, 0, 0.25);
-
-  font-weight: 700;
-  text-decoration: none;
-
-  transition: background-color 0.2s ease, border-color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.ctaButton:hover {
-  background: rgba(0, 0, 0, 0.35);
-  border-color: rgba(255, 255, 255, 0.28);
-  transform: translateX(2px);
+  composes: button from "@/styles/ui.module.css";
+  margin-top: var(--pt-space-3);
 }

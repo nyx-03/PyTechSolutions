@@ -21,20 +21,17 @@ export default function About() {
         <motion.h2 className={styles.title} variants={fadeInUpItem}>
           PyTechSolutions & son fondateur
         </motion.h2>
-        <motion.p 
-        className={styles.intro}
-        variants={fadeInUpItem}
-        >
+        <motion.p className={styles.intro} variants={fadeInUpItem}>
           PyTechSolutions est un studio de développement indépendant, fondé par
           un développeur passionné par le sur-mesure, l'automatisation et les
           outils qui ont un impact concret sur le quotidien des équipes.
         </motion.p>
         <div className={styles.grid}>
-          <motion.div 
-          className={styles.founderCard}
-          variants={slideInLeft}
-          whileHover={{ y: -4 }}
-          transition={{ type: "spring", stiffness: 250, damping: 18 }}
+          <motion.div
+            className={styles.founderCard}
+            variants={slideInLeft}
+            whileHover={{ y: -4 }}
+            transition={{ type: "spring", stiffness: 250, damping: 18 }}
           >
             <div className={styles.founderAvatar}>
               <Image
@@ -45,7 +42,7 @@ export default function About() {
               />
             </div>
             <div className={styles.founderInfo}>
-              <p className={styles.founderName}>Ragon Ludovic</p>
+              <h3 className={styles.founderName}>Ragon Ludovic</h3>
               <p className={styles.founderRole}>
                 Fondateur & développeur full-stack
               </p>
@@ -57,9 +54,7 @@ export default function About() {
             </div>
           </motion.div>
 
-          <motion.div 
-          className={styles.content}
-          variants={slideInRight}>
+          <motion.div className={styles.content} variants={slideInRight}>
             <p>
               Mon rôle n'est pas seulement de "coder ce que vous demandez", mais
               de vous aider à clarifier votre besoin, prioriser les
