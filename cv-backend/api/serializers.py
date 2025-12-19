@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Realisation, Testimonial, ContactMessage
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 
 
 class RealisationListSerializer(serializers.ModelSerializer):
@@ -108,3 +109,52 @@ class RealisationAdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = Realisation
         fields = "__all__"
+
+
+# Admin-only serializer for managing users and their roles (groups)
+class AdminUserSerializer(serializers.ModelSerializer):
+    """
+    Admin serializer for managing users and their roles (groups).
+
+    - roles is exposed as a list of group names
+    - roles can be updated via PATCH
+    """
+
+    roles = serializers.ListField(
+        child=serializers.CharField(),
+        write_only=True,
+        required=False,
+    )
+    roles_display = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "username",
+            "email",
+            "is_active",
+            "is_staff",
+            "is_superuser",
+            "roles",
+            "roles_display",
+        )
+        read_only_fields = ("is_superuser",)
+
+    def get_roles_display(self, obj):
+        return list(obj.groups.values_list("name", flat=True))
+
+    def update(self, instance, validated_data):
+        roles = validated_data.pop("roles", None)
+
+        # Update basic user fields
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        # Update roles (groups) if provided
+        if roles is not None:
+            groups = Group.objects.filter(name__in=roles)
+            instance.groups.set(groups)
+
+        return instance

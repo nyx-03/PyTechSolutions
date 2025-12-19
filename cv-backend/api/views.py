@@ -1,7 +1,11 @@
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
+from .permissions import DjangoModelPermissionsStrict
+from django.contrib.auth import get_user_model
+from .permissions import IsAdminRole
+from .serializers import AdminUserSerializer
 
 from .models import Realisation, Testimonial, ContactMessage
 from .serializers import (
@@ -63,4 +67,18 @@ class AdminRealisationViewSet(viewsets.ModelViewSet):
 
     queryset = Realisation.objects.all()
     serializer_class = RealisationAdminSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, DjangoModelPermissionsStrict]
+
+
+class AdminUserViewSet(viewsets.ModelViewSet):
+    """
+    Admin API to manage users and their roles.
+
+    Accessible only to Admin role or superuser.
+    """
+
+    queryset = get_user_model().objects.all().order_by("username")
+    serializer_class = AdminUserSerializer
+    permission_classes = [IsAuthenticated, IsAdminRole]
+
+    http_method_names = ["get", "patch", "head", "options"]

@@ -7,6 +7,7 @@ from .views import (
     TestimonialViewSet,
     ContactMessageCreateView,
     AdminRealisationViewSet,
+    AdminUserViewSet,
 )
 from api.auth.login import LoginView
 from api.auth.logout import LogoutView
@@ -18,6 +19,7 @@ router.register(r"testimonials", TestimonialViewSet, basename="testimonials")
 
 admin_router = DefaultRouter()
 admin_router.register(r"realisations", AdminRealisationViewSet, basename="admin-realisations")
+admin_router.register(r"users", AdminUserViewSet, basename="admin-users")
 
 urlpatterns = [
     # Public API

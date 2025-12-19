@@ -1,10 +1,33 @@
 import pytest
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from rest_framework.test import APIClient
 from api.models import Realisation
 
 pytestmark = pytest.mark.django_db
 User = get_user_model()
+
+
+def ensure_admin_group_with_realisations_perms():
+    """Create/update the 'Admin' group with full Realisation model permissions."""
+    group, _ = Group.objects.get_or_create(name="Admin")
+    ct = ContentType.objects.get_for_model(Realisation)
+    perms = Permission.objects.filter(
+        content_type=ct,
+        codename__in=[
+            "view_realisation",
+            "add_realisation",
+            "change_realisation",
+            "delete_realisation",
+        ],
+    )
+    group.permissions.set(perms)
+
+    # Ensure permissions exist (if this fails, migrations/contenttypes/permissions aren't ready)
+    assert perms.count() == 4, f"Expected 4 Realisation perms, got {perms.count()}"
+
+    return group
 
 def login_token(username, password):
     client = APIClient()
@@ -21,7 +44,14 @@ def test_admin_realisations_requires_staff():
     assert resp.status_code in (401, 403)
 
 def test_admin_realisations_crud_staff_ok():
-    User.objects.create_user(username="admin", password="pass123", is_staff=True)
+    admin = User.objects.create_user(username="admin", password="pass123", is_staff=True)
+    admin_group = ensure_admin_group_with_realisations_perms()
+    admin.groups.add(admin_group)
+    admin.refresh_from_db()
+
+    # Sanity check: the user must be in Admin group for RBAC to allow CRUD
+    assert admin.groups.filter(name="Admin").exists(), "Admin user is not in 'Admin' group"
+
     client = APIClient()
     access = login_token("admin", "pass123")
     client.credentials(HTTP_AUTHORIZATION=f"Bearer {access}")
