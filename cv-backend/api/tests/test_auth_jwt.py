@@ -52,8 +52,44 @@ def test_refresh_returns_new_access():
 def test_logout_ok_when_authenticated():
     create_staff_user()
     client = APIClient()
-    login = client.post("/api/auth/login/", {"username":"admin","password":"pass123"}, format="json").json()
+    login = client.post(
+        "/api/auth/login/",
+        {"username": "admin", "password": "pass123"},
+        format="json",
+    ).json()
     client.credentials(HTTP_AUTHORIZATION=f"Bearer {login['access']}")
 
-    out = client.post("/api/auth/logout/", {}, format="json")
+    out = client.post(
+        "/api/auth/logout/",
+        {"refresh": login["refresh"]},
+        format="json",
+    )
     assert out.status_code == 200
+
+def test_logout_blacklists_refresh_token():
+    create_staff_user()
+    client = APIClient()
+
+    login = client.post(
+        "/api/auth/login/",
+        {"username": "admin", "password": "pass123"},
+        format="json",
+    ).json()
+
+    # Logout (blacklist refresh)
+    client.credentials(HTTP_AUTHORIZATION=f"Bearer {login['access']}")
+    out = client.post(
+        "/api/auth/logout/",
+        {"refresh": login["refresh"]},
+        format="json",
+    )
+    assert out.status_code == 200
+
+    # Attempt to refresh using the same refresh token should now fail
+    client.credentials()  # clear auth header
+    resp = client.post(
+        "/api/auth/token/refresh/",
+        {"refresh": login["refresh"]},
+        format="json",
+    )
+    assert resp.status_code in (400, 401)
