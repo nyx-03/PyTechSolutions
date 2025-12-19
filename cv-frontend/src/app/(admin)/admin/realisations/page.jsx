@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import ui from "@/styles/ui.module.css"
 
 const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_BASE = RAW_API_BASE
@@ -63,6 +64,7 @@ export default function AdminRealisationsPage() {
 
         <button
           type="button"
+          className={ui.primaryButton}
           onClick={() => router.push("/admin/realisations/new")}
         >
           + Nouvelle réalisation

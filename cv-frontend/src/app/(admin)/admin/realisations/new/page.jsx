@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import RealisationForm from "@/components/admin/RealisationForm/RealisationForm";
+import ui from "@/styles/ui.module.css";
 
 const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_BASE = RAW_API_BASE
@@ -16,16 +18,10 @@ function getAccessToken() {
 export default function NewRealisationPage() {
   const router = useRouter();
 
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [type, setType] = useState("web");
-  const [status, setStatus] = useState("draft");
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function handleCreate(payload) {
     setError("");
     setLoading(true);
 
@@ -36,16 +32,19 @@ export default function NewRealisationPage() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getAccessToken()}`,
         },
-        body: JSON.stringify({
-          title,
-          content,
-          type,
-          status,
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
+
+        // DRF often returns field errors as an object: {field: ["msg"]}
+        if (data && typeof data === "object" && !Array.isArray(data) && !data.detail) {
+          const firstKey = Object.keys(data)[0];
+          const firstMsg = Array.isArray(data[firstKey]) ? data[firstKey][0] : String(data[firstKey]);
+          throw new Error(`${firstKey}: ${firstMsg}`);
+        }
+
         throw new Error(data?.detail || "Création refusée (permissions ?)");
       }
 
@@ -58,65 +57,37 @@ export default function NewRealisationPage() {
   }
 
   return (
-    <div style={{ maxWidth: 720 }}>
-      <h1 style={{ marginTop: 0 }}>Nouvelle réalisation</h1>
+    <div className={ui.pageNarrow}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h1 className={ui.title}>Nouvelle réalisation</h1>
 
-      <form onSubmit={handleSubmit} style={{ display: "grid", gap: 16 }}>
-        <label style={{ display: "grid", gap: 6 }}>
-          <span>Titre</span>
-          <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </label>
+        <button
+          type="button"
+          className={ui.secondaryButton}
+          onClick={() => router.push("/admin/realisations")}
+        >
+          Retour
+        </button>
+      </div>
 
-        <label style={{ display: "grid", gap: 6 }}>
-          <span>Contenu</span>
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            rows={6}
-            required
-          />
-        </label>
+      <p className={ui.text} style={{ marginTop: 8 }}>
+        Remplis les informations ci-dessous puis valide pour créer une nouvelle réalisation.
+      </p>
 
-        <label style={{ display: "grid", gap: 6 }}>
-          <span>Type</span>
-          <select value={type} onChange={(e) => setType(e.target.value)}>
-            <option value="web">Web</option>
-            <option value="desktop">Desktop</option>
-            <option value="mobile">Mobile</option>
-          </select>
-        </label>
-
-        <label style={{ display: "grid", gap: 6 }}>
-          <span>Statut</span>
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
-          </select>
-        </label>
-
-        {error && (
-          <div style={{ padding: 12, border: "1px solid rgba(255,0,0,0.4)" }}>
-            {error}
-          </div>
-        )}
-
-        <div style={{ display: "flex", gap: 12 }}>
-          <button type="submit" disabled={loading}>
-            {loading ? "Création…" : "Créer"}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => router.push("/admin/realisations")}
-          >
-            Annuler
-          </button>
+      {error && (
+        <div className={ui.panel} style={{ marginTop: 12 }}>
+          <div className={ui.error}>{error}</div>
         </div>
-      </form>
+      )}
+
+      <div className={ui.panel} style={{ marginTop: 16 }}>
+        <RealisationForm
+          onSubmit={handleCreate}
+          onCancel={() => router.push("/admin/realisations")}
+          submitLabel="Créer"
+          loading={loading}
+        />
+      </div>
     </div>
   );
 }

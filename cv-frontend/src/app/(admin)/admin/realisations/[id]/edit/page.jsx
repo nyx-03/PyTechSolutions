@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import RealisationForm from "@/components/admin/RealisationForm/RealisationForm";
 
 const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_BASE = RAW_API_BASE
@@ -17,11 +18,7 @@ export default function EditRealisationPage() {
   const router = useRouter();
   const { id } = useParams();
 
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [type, setType] = useState("web");
-  const [status, setStatus] = useState("draft");
-
+  const [initialData, setInitialData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -42,10 +39,12 @@ export default function EditRealisationPage() {
         }
 
         const data = await res.json();
-        setTitle(data.title || "");
-        setContent(data.content || "");
-        setType(data.type || "web");
-        setStatus(data.status || "draft");
+        setInitialData({
+          title: data.title || "",
+          content: data.content || "",
+          type: data.type || "web",
+          status: data.status || "draft",
+        });
       } catch (err) {
         setError(err.message);
       } finally {
@@ -53,13 +52,10 @@ export default function EditRealisationPage() {
       }
     }
 
-    if (id) {
-      fetchRealisation();
-    }
+    if (id) fetchRealisation();
   }, [id]);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function handleUpdate(payload) {
     setError("");
     setSaving(true);
 
@@ -70,12 +66,7 @@ export default function EditRealisationPage() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getAccessToken()}`,
         },
-        body: JSON.stringify({
-          title,
-          content,
-          type,
-          status,
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) {
@@ -95,66 +86,27 @@ export default function EditRealisationPage() {
     return <p>Chargement de la réalisation…</p>;
   }
 
+  if (!initialData) {
+    return <p>Réalisation introuvable.</p>;
+  }
+
   return (
     <div style={{ maxWidth: 720 }}>
       <h1 style={{ marginTop: 0 }}>Éditer la réalisation</h1>
 
-      <form onSubmit={handleSubmit} style={{ display: "grid", gap: 16 }}>
-        <label style={{ display: "grid", gap: 6 }}>
-          <span>Titre</span>
-          <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </label>
-
-        <label style={{ display: "grid", gap: 6 }}>
-          <span>Contenu</span>
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            rows={6}
-            required
-          />
-        </label>
-
-        <label style={{ display: "grid", gap: 6 }}>
-          <span>Type</span>
-          <select value={type} onChange={(e) => setType(e.target.value)}>
-            <option value="web">Web</option>
-            <option value="desktop">Desktop</option>
-            <option value="mobile">Mobile</option>
-          </select>
-        </label>
-
-        <label style={{ display: "grid", gap: 6 }}>
-          <span>Statut</span>
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
-          </select>
-        </label>
-
-        {error && (
-          <div style={{ padding: 12, border: "1px solid rgba(255,0,0,0.4)" }}>
-            {error}
-          </div>
-        )}
-
-        <div style={{ display: "flex", gap: 12 }}>
-          <button type="submit" disabled={saving}>
-            {saving ? "Enregistrement…" : "Enregistrer"}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => router.push("/admin/realisations")}
-          >
-            Annuler
-          </button>
+      {error && (
+        <div style={{ padding: 12, border: "1px solid rgba(255,0,0,0.4)" }}>
+          {error}
         </div>
-      </form>
+      )}
+
+      <RealisationForm
+        initialData={initialData}
+        onSubmit={handleUpdate}
+        onCancel={() => router.push("/admin/realisations")}
+        submitLabel="Enregistrer"
+        loading={saving}
+      />
     </div>
   );
 }

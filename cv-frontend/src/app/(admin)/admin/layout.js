@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import ui from "@/styles/ui.module.css"
 
 // Petit helper: base URL API (à remplacer par env si tu veux)
 const API_BASE =
@@ -90,12 +91,7 @@ export default function AdminLayout({ children }) {
               sessionStorage.removeItem("refresh_token");
               router.replace("/admin/login");
             }}
-            style={{
-              marginTop: 12,
-              padding: "10px 12px",
-              width: "100%",
-              cursor: "pointer",
-            }}
+            className={ui.primaryButton}
           >
             Se déconnecter
           </button>
