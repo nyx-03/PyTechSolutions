@@ -104,7 +104,7 @@ export default function RealisationsPage() {
           Discutons de ton contexte et des objectifs : audit, développement,
           refonte, ou accompagnement.
         </p>
-        <Link href="/contact" className={`${ui.button} ${ui.buttonPrimary} ${ui.buttonPill} ${styles.ctaButton}`}>
+        <Link href="/contact" className={ui.primaryButton}>
           Me contacter
           <span aria-hidden="true">→</span>
         </Link>

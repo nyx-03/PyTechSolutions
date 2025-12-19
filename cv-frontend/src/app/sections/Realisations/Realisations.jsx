@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import styles from "./Realisations.module.css";
+import ui from "@/styles/ui.module.css";
 import {
   fadeInUpContainer,
   fadeInUpItem,
@@ -154,7 +155,10 @@ export default function Realisations() {
             Vous souhaitez voir comment ces approches pourraient s&apos;adapter
             à votre activité&nbsp;?
           </p>
-          <Link href="/contact" className={styles.cta}>
+          <Link
+            href="/contact"
+            className={ui.primaryButton}
+          >
             Discuter de mon projet
           </Link>
         </motion.div>

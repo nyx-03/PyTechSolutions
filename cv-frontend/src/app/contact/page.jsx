@@ -99,7 +99,7 @@ export default function ContactPage() {
           <button
             type="submit"
             disabled={status === "loading"}
-            className={`${ui.button} ${ui.buttonPrimary} ${ui.buttonPill} ${styles.submitButton}`}
+            className={ui.primaryButton}
           >
             {status === "loading" ? "Envoi…" : "Envoyer le message"}
           </button>

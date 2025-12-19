@@ -12,7 +12,7 @@ const SECTION_LABELS = [
   "Témoignages",
   "Engagements",
   "Contact",
-  "Footer",
+  "Footer"
 ];
 
 export default function ScrollLayout({ children }) {
@@ -20,6 +20,11 @@ export default function ScrollLayout({ children }) {
   const sectionRefs = useRef([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [totalSections, setTotalSections] = useState(0);
+
+  useEffect(() => {
+    document.body.classList.add("scroll-layout");
+    return () => document.body.classList.remove("scroll-layout");
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;

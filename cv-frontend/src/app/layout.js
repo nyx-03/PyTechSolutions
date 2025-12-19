@@ -15,6 +15,9 @@ export default function RootLayout({ children }) {
         <div className="site-grid-bg" />
         <Header />
         {children}
+        <div id="site-footer">
+          <Footer />
+        </div>
       </body>
     </html>
   );

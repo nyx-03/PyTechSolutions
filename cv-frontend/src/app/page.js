@@ -5,9 +5,9 @@ import Realisations from "./sections/Realisations/Realisations";
 import Testimonials from "./sections/Testimonials/Testimonials";
 import Engagements from "./sections/Engagements/Engagements";
 import CallToAction from "./sections/CallToAction/CallToAction";
-import Footer from "@/components/Footer/footer";
 
 import ScrollLayout from "./ScrollLayout";
+import Footer from "@/components/Footer/footer";
 
 export default function HomePage() {
   return (

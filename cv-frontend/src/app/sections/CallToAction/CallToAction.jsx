@@ -41,10 +41,17 @@ export default function CallToAction() {
                 className={styles.actions}
                 variants={fadeInUpItem}
                 >
-                    <Link href="/contact" className={`${ui.button} ${styles.primaryButton}`}>
-                    Discuter de mon projet</Link>
-                    <Link href="/realisations" className={`${ui.button} ${ui.buttonGhost} ${styles.secondaryLink}`}>
-                    Voir quelques réalisations
+                    <Link
+                      href="/contact"
+                      className={`${ui.primaryButton}`}
+                    >
+                      Discuter de mon projet
+                    </Link>
+                    <Link
+                      href="/realisations"
+                      className={`${ui.secondaryButton}`}
+                    >
+                      Voir quelques réalisations
                     </Link>
                 </motion.div>
                 <motion.p className={styles.note} variants={fadeInUpItem}>
