@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 
 import { fadeInUpContainer, fadeInUpItem } from "@/lib/animations/variants";
 import styles from "./Hero.module.css";
+import ui from "@/styles/ui.module.css";
 
 export default function Hero() {
   return (
@@ -63,7 +64,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.div className={styles.actions} variants={fadeInUpItem}>
-          <Link href="/contact" className={styles.primaryButton}>
+          <Link href="/contact" className={ui.primaryButton}>
             <motion.span
               whileHover={{ scale: 1.04, y: -1 }}
               whileTap={{ scale: 0.96 }}
@@ -73,7 +74,7 @@ export default function Hero() {
             </motion.span>
           </Link>
 
-          <Link href="/realisations" className={styles.secondaryButton}>
+          <Link href="/realisations" className={ui.secondaryButton}>
             <motion.span
               whileHover={{ scale: 1.04, y: -1 }}
               whileTap={{ scale: 0.96 }}

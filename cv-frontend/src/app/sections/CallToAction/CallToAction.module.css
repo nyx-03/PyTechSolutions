@@ -1,6 +1,6 @@
 /* CallToAction – harmonized with globals.css tokens and ui.module.css */
 .ctaSection {
-  min-height: calc(100vh - 175px);
+  min-height: calc(100vh - var(--pt-header-height));
   padding: var(--pt-space-8) var(--pt-space-4) calc(var(--pt-space-8) + var(--pt-space-2));
 
   display: flex;
@@ -47,33 +47,6 @@
   margin-bottom: var(--pt-space-5);
 }
 
-.primaryButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.9rem 1.8rem;
-  border-radius: var(--pt-radius-pill);
-  border: 1px solid transparent;
-  background: linear-gradient(
-    135deg,
-    var(--pt-color-primary),
-    var(--pt-color-accent)
-  );
-  color: #0b1120;
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-  transition: transform var(--pt-t-fast), box-shadow var(--pt-t-fast), filter var(--pt-t-fast);
-}
-
-.primaryButton:hover {
-  filter: brightness(1.05);
-  box-shadow: 0 22px 55px rgba(15, 23, 42, 1);
-  transform: translateY(-1px);
-}
-
 .secondaryLink {
   font-size: 0.92rem;
   color: var(--pt-color-text-muted);
@@ -108,9 +81,5 @@
 
   .actions {
     flex-direction: column;
-  }
-
-  .primaryButton {
-    width: 100%;
   }
 }

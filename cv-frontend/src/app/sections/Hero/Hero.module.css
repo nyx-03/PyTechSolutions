@@ -104,61 +104,6 @@
   margin-top: 0.5rem;
 }
 
-/* Bouton principal */
-
-.primaryButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.8rem 1.6rem;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  background: linear-gradient(
-    135deg,
-    var(--pt-color-primary),
-    var(--pt-color-accent)
-  );
-  color: #0b1120;
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-  transition: box-shadow 0.2s ease, transform 0.2s ease, filter 0.2s ease;
-}
-
-.primaryButton:hover {
-  filter: brightness(1.05);
-  box-shadow: 0 22px 55px rgba(15, 23, 42, 1);
-}
-
-/* Bouton secondaire */
-
-.secondaryButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.8rem 1.4rem;
-  border-radius: 999px;
-  border: 1px solid var(--pt-color-border-subtle);
-  background: transparent;
-  color: var(--pt-color-text-main);
-  font-weight: 500;
-  font-size: 0.95rem;
-  text-decoration: none;
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.secondaryButton:hover {
-  background: rgba(15, 23, 42, 0.9);
-  border-color: var(--pt-color-primary);
-  color: var(--pt-color-primary);
-}
-
 /* Scroll indicator */
 
 .scrollIndicator {
@@ -294,16 +239,6 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-  }
-
-  /* Largeur fluide des boutons : 100% with max 420px */
-  .primaryButton,
-  .secondaryButton {
-    width: 100%;
-    max-width: 200px;
-    justify-content: center;
-    padding-block: 0.9rem;
-    font-size: 1rem;
   }
 
   .orbit {
