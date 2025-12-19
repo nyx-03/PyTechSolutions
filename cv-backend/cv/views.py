@@ -7,15 +7,15 @@ from .serializers import ProfileSerializer
 
 
 @api_view(["GET"])
-def cv_detail(request):
+def cv_detail(request, slug):
     """
     Renvoie le CV (Profile + Skills + Experiences + Education + Languages + Extras) en JSON.
     """
-    profile = Profile.objects.first()
+    profile = Profile.objects.filter(slug=slug).first()
 
     if profile is None:
         return Response(
-            {"detail": "Aucun profil trouvé. Créez au moins un Profile dans l'admin."},
+            {"detail": f"Aucun profil trouvé pour le slug '{slug}'."},
             status=status.HTTP_404_NOT_FOUND,
         )
 
