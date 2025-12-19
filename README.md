@@ -35,7 +35,9 @@ PytechSolutions_Next_Django/
 ### Backend
 - **Python 3.12+**
 - **Django**
-- Django REST Framework (prévu / en cours)
+- Django REST Framework
+- JWT authentication (SimpleJWT)
+- Role-based access control (Admin / Editor / Viewer)
 - Architecture orientée API
 - Gestion des données et logique métier côté serveur
 
@@ -45,6 +47,7 @@ PytechSolutions_Next_Django/
 - CSS Modules
 - **Framer Motion** pour les animations
 - Architecture orientée composants
+- Admin panel built with Next.js App Router
 
 ---
 
@@ -58,12 +61,31 @@ PytechSolutions_Next_Django/
 
 ---
 
+## 🛡️ Administration
+
+Le projet inclut un **panneau d’administration personnalisé**, développé avec Next.js, permettant :
+
+- Authentification sécurisée via JWT
+- Gestion des utilisateurs et de leurs rôles
+- CRUD complet des réalisations (création, édition, suppression)
+- Séparation stricte entre le site public et l’interface admin
+
+L’interface admin est accessible via :
+
+```
+/admin
+```
+
+Les permissions sont entièrement contrôlées côté backend Django.
+
+---
+
 ## 🚧 État du projet
 
-🟡 **En cours de développement**
+🟡 **En cours de développement actif**
 
-Le projet est en phase active de conception et d’implémentation.  
-La structure est amenée à évoluer, tout comme les fonctionnalités et le contenu.
+Le site public et le panneau d’administration sont fonctionnels.
+Les prochaines étapes concernent l’enrichissement du contenu, l’amélioration de l’UI et la préparation au déploiement.
 
 ---
 
