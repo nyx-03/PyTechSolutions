@@ -1,4 +1,5 @@
 import ui from "@/styles/ui.module.css";
+import layout from "@/styles/adminLayout.module.css";
 import Link from "next/link";
 
 export default function AdminHomePage() {
@@ -6,21 +7,15 @@ export default function AdminHomePage() {
     <div className={ui.page}>
       <div className={ui.pageNarrow}>
         <h1 className={ui.title}>Dashboard</h1>
-        <p className={ui.text} style={{ marginTop: 8 }}>
+        <p className={`${ui.text} ${layout.intro}`}>
           Bienvenue dans le panneau d’administration. Ici seront branchées les
           statistiques, les actions rapides et les liens de gestion.
         </p>
 
-        <div
-          style={{
-            display: "grid",
-            gap: 16,
-            marginTop: 24,
-          }}
-        >
+        <div className={layout.dashboardGrid}>
           <div className={ui.panel}>
             <h2 className={ui.sectionTitle}>Gestion</h2>
-            <ul style={{ marginTop: 12, display: "grid", gap: 8 }}>
+            <ul className={layout.linkList}>
               <li>
                 <Link href="/admin/users" className={ui.secondaryButton}>
                   Utilisateurs & rôles
@@ -36,7 +31,7 @@ export default function AdminHomePage() {
 
           <div className={ui.panelSoft + " " + ui.panel}>
             <h2 className={ui.sectionTitle}>À venir</h2>
-            <p className={ui.text} style={{ marginTop: 8 }}>
+            <p className={`${ui.text} ${layout.intro}`}>
               Statistiques, contenus éditoriaux, médias, logs, etc.
             </p>
           </div>

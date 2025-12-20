@@ -1,0 +1,40 @@
+/* Layout global login */
+
+.page {
+  max-width: 520px;
+}
+
+/* Header */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Form */
+
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.helper {
+  margin-top: 4px;
+}
+
+.note {
+  margin-top: 12px;
+  opacity: 0.8;
+}

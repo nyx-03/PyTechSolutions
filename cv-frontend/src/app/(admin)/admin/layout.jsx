@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import ui from "@/styles/ui.module.css";
+import layout from "@/styles/adminLayout.module.css";
 
 const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_BASE = RAW_API_BASE
@@ -65,19 +66,13 @@ export default function AdminLayout({ children }) {
   }
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "grid",
-        gridTemplateColumns: "260px 1fr",
-      }}
-    >
+    <div className={layout.shell}>
       <aside className={ui.panel}>
-        <div style={{ fontWeight: 700, marginBottom: 12 }}>
+        <div className={layout.brand}>
           PyTechSolutions Admin
         </div>
 
-        <nav style={{ display: "grid", gap: 8 }}>
+        <nav className={layout.nav}>
           <Link href="/admin" className={ui.secondaryButton}>
             Dashboard
           </Link>
@@ -89,7 +84,7 @@ export default function AdminLayout({ children }) {
           </Link>
         </nav>
 
-        <div style={{ marginTop: 18 }}>
+        <div className={layout.logout}>
           <button
             type="button"
             className={ui.primaryButton}

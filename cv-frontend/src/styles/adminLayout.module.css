@@ -1,0 +1,59 @@
+
+
+/* ==============================
+   Admin layout shell
+   ============================== */
+
+.shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+}
+
+/* ==============================
+   Sidebar
+   ============================== */
+
+.brand {
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.nav {
+  display: grid;
+  gap: 8px;
+}
+
+.logout {
+  margin-top: 18px;
+}
+
+/* ==============================
+   Admin dashboard helpers
+   ============================== */
+
+.intro {
+  margin-top: 8px;
+}
+
+.dashboardGrid {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.linkList {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+/* ==============================
+   Responsive adjustments
+   ============================== */
+
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+}

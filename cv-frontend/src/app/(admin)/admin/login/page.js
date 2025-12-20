@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ui from "@/styles/ui.module.css";
+import auth from "@/styles/auth.module.css";
 
 const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_BASE = RAW_API_BASE
@@ -48,14 +49,14 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className={ui.pageNarrow}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+    <div className={`${ui.pageNarrow} ${auth.page}`}>
+      <div className={auth.header}>
         <h1 className={ui.title}>Connexion admin</h1>
       </div>
 
-      <div className={ui.panel} style={{ marginTop: 16, maxWidth: 520 }}>
-        <form onSubmit={handleSubmit} style={{ display: "grid", gap: 12 }}>
-          <label style={{ display: "grid", gap: 6 }}>
+      <div className={ui.panel}>
+        <form onSubmit={handleSubmit} className={auth.form}>
+          <label className={auth.field}>
             <span className={ui.text}>Username</span>
             <input
               className={ui.input}
@@ -67,7 +68,7 @@ export default function AdminLoginPage() {
             />
           </label>
 
-          <label style={{ display: "grid", gap: 6 }}>
+          <label className={auth.field}>
             <span className={ui.text}>Password</span>
             <input
               className={ui.input}
@@ -81,18 +82,18 @@ export default function AdminLoginPage() {
           </label>
 
           {error && (
-            <div style={{ marginTop: 4 }}>
+            <div className={auth.helper}>
               <span className={ui.error}>{error}</span>
             </div>
           )}
 
-          <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+          <div className={auth.actions}>
             <button type="submit" className={ui.primaryButton} disabled={loading}>
               {loading ? "Connexion…" : "Se connecter"}
             </button>
           </div>
 
-          <p className={ui.text} style={{ marginTop: 12, opacity: 0.8 }}>
+          <p className={`${ui.text} ${auth.note}`}>
             Note : on stocke temporairement les tokens en sessionStorage. Ensuite on passera au refresh token en cookie HttpOnly.
           </p>
         </form>
