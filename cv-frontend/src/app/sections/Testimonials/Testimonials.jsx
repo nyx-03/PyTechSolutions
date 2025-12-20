@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import styles from "./Testimonials.module.css";
+import styles from "@/styles/Testimonials.module.css";
 import {
   fadeInUpContainer,
   fadeInUpItem,

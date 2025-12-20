@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import ScrollProgress from "@/components/ScrollProgress/ScrollProgress";
-import styles from "@/components/ScrollProgress/ScrollProgress.module.css"
+import styles from "@/styles/ScrollProgress.module.css"
 
 const SECTION_LABELS = [
   "Accueil",

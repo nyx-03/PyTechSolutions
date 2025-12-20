@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 
 import { fadeInUpContainer, fadeInUpItem } from "@/lib/animations/variants";
-import styles from "./Expertises.module.css";
+import styles from "@/styles/Expertises.module.css";
 
 const EXPERTISES = [
   {

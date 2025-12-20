@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import styles from "./Engagements.module.css";
+import styles from "@/styles/Engagements.module.css";
 import { fadeInUpContainer, fadeInUpItem } from "@/lib/animations/variants";
 
 const ENGAGEMENTS = [

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import styles from "./Realisations.module.css";
+import styles from "@/styles/RealisationsAdmin.module.css";
 import ui from "@/styles/ui.module.css";
 import {
   fadeInUpContainer,

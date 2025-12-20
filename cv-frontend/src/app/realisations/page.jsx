@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "./realisations.module.css";
+import styles from "@/styles/Realisations.module.css";
 import ui from "@/styles/ui.module.css";
 
 const PROJECTS = [

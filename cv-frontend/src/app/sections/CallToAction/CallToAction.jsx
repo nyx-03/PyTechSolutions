@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 
-import styles from "./CallToAction.module.css"
+import styles from "@/styles/CallToAction.module.css"
 import ui from "@/styles/ui.module.css";
 import { fadeInUpContainer, fadeInUpItem } from "@/lib/animations/variants"
 

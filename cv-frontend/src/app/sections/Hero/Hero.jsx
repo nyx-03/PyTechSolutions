@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 import { fadeInUpContainer, fadeInUpItem } from "@/lib/animations/variants";
-import styles from "./Hero.module.css";
+import styles from "@/styles/Hero.module.css";
 import ui from "@/styles/ui.module.css";
 
 export default function Hero() {

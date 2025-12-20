@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./contact.module.css";
+import styles from "@/styles/contact.module.css";
 import ui from "@/styles/ui.module.css"
 
 export default function ContactPage() {

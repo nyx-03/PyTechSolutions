@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 import { fadeInUpContainer, fadeInUpItem, slideInLeft, slideInRight } from "@/lib/animations/variants";
-import styles from "./About.module.css";
+import styles from "@/styles/About.module.css";
 
 export default function About() {
   return (

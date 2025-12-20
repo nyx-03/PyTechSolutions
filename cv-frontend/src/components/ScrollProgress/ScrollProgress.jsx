@@ -1,4 +1,4 @@
-import styles from "./ScrollProgress.module.css";
+import styles from "@/styles/ScrollProgress.module.css";
 
 export default function ScrollProgress({
   activeIndex,

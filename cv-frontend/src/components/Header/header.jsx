@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
-import styles from "./Header.module.css";
+import styles from "@/styles/Header.module.css";
 
 export default function Header() {
   const navLinks = [
