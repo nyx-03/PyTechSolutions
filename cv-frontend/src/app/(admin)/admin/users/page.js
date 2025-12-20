@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ui from "@/styles/ui.module.css";
 
 const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_BASE = RAW_API_BASE
@@ -70,50 +71,70 @@ export default function AdminUsersPage() {
   }, []);
 
   if (loading) {
-    return <p>Chargement des utilisateurs…</p>;
+    return (
+      <div className={ui.pageNarrow}>
+        <p className={ui.text}>Chargement des utilisateurs…</p>
+      </div>
+    );
   }
 
   if (error) {
-    return <p style={{ color: "red" }}>{error}</p>;
+    return (
+      <div className={ui.pageNarrow}>
+        <div className={ui.panel}>
+          <span className={ui.error}>{error}</span>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h1 style={{ marginTop: 0 }}>Utilisateurs & rôles</h1>
+    <div className={ui.page}>
+      <div className={ui.pageWide}>
+        <h1 className={ui.title}>Utilisateurs & rôles</h1>
+        <p className={ui.text} style={{ marginTop: 8 }}>
+          Gérez les rôles des utilisateurs enregistrés.
+        </p>
 
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th style={{ textAlign: "left" }}>Username</th>
-            <th style={{ textAlign: "left" }}>Email</th>
-            <th style={{ textAlign: "left" }}>Rôle</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id} style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-              <td>{user.username}</td>
-              <td>{user.email || "—"}</td>
-              <td>
-                <select
-                  value={user.roles_display?.[0] || "Viewer"}
-                  onChange={(e) => updateRoles(user.id, [e.target.value])}
-                >
-                  {ALL_ROLES.map((role) => (
-                    <option key={role} value={role}>
-                      {role}
-                    </option>
-                  ))}
-                </select>
-              </td>
-              <td style={{ opacity: 0.6 }}>
-                {user.is_superuser ? "Superuser" : user.is_staff ? "Staff" : ""}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        <div className={ui.panel} style={{ marginTop: 16 }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
+            <thead>
+              <tr>
+                <th style={{ textAlign: "left", padding: "10px 12px" }}>Username</th>
+                <th style={{ textAlign: "left", padding: "10px 12px" }}>Email</th>
+                <th style={{ textAlign: "left", padding: "10px 12px" }}>Rôle</th>
+                <th style={{ textAlign: "left", padding: "10px 12px" }}>Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.id} style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+                  <td style={{ padding: "10px 12px" }}>{user.username}</td>
+                  <td style={{ padding: "10px 12px" }}>{user.email || "—"}</td>
+                  <td style={{ padding: "10px 12px" }}>
+                    <div style={{ minWidth: 180 }}>
+                      <select
+                        className={ui.input}
+                        value={user.roles_display?.[0] || "Viewer"}
+                        onChange={(e) => updateRoles(user.id, [e.target.value])}
+                      >
+                        {ALL_ROLES.map((role) => (
+                          <option key={role} value={role}>
+                            {role}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </td>
+                  <td style={{ padding: "10px 12px", opacity: 0.7 }}>
+                    {user.is_superuser ? "Superuser" : user.is_staff ? "Staff" : ""}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

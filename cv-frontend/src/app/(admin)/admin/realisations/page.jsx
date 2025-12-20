@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import ui from "@/styles/ui.module.css"
+import ui from "@/styles/ui.module.css";
 
 const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_BASE = RAW_API_BASE
@@ -50,62 +50,89 @@ export default function AdminRealisationsPage() {
   }, []);
 
   if (loading) {
-    return <p>Chargement des réalisations…</p>;
+    return (
+      <div className={ui.pageNarrow}>
+        <p className={ui.text}>Chargement des réalisations…</p>
+      </div>
+    );
   }
 
   if (error) {
-    return <p style={{ color: "red" }}>{error}</p>;
+    return (
+      <div className={ui.pageNarrow}>
+        <div className={ui.panel}>
+          <span className={ui.error}>{error}</span>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h1 style={{ marginTop: 0 }}>Réalisations</h1>
-
-        <button
-          type="button"
-          className={ui.primaryButton}
-          onClick={() => router.push("/admin/realisations/new")}
+    <div className={ui.page}>
+      <div className={ui.pageWide}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
         >
-          + Nouvelle réalisation
-        </button>
+          <h1 className={ui.title}>Réalisations</h1>
+
+          <button
+            type="button"
+            className={ui.primaryButton}
+            onClick={() => router.push("/admin/realisations/new")}
+          >
+            + Nouvelle réalisation
+          </button>
+        </div>
+
+        <div className={ui.panel} style={{ marginTop: 16 }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
+            <thead>
+              <tr>
+                <th style={{ textAlign: "left", padding: "10px 12px" }}>Titre</th>
+                <th style={{ textAlign: "left", padding: "10px 12px" }}>Type</th>
+                <th style={{ textAlign: "left", padding: "10px 12px" }}>Statut</th>
+                <th style={{ padding: "10px 12px" }} />
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((item) => (
+                <tr
+                  key={item.id}
+                  style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}
+                >
+                  <td style={{ padding: "10px 12px" }}>{item.title}</td>
+                  <td style={{ padding: "10px 12px" }}>{item.type}</td>
+                  <td style={{ padding: "10px 12px" }}>{item.status}</td>
+                  <td style={{ padding: "10px 12px", textAlign: "right" }}>
+                    <div style={{ display: "inline-flex", gap: 8 }}>
+                      <button
+                        type="button"
+                        className={ui.secondaryButton}
+                        onClick={() => router.push(`/admin/realisations/${item.id}/edit`)}
+                        style={{ marginRight: 8 }}
+                      >
+                        Éditer
+                      </button>
+
+                      <button
+                        type="button"
+                        className={ui.secondaryButton}
+                        onClick={() => router.push(`/admin/realisations/${item.id}/delete`)}
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th style={{ textAlign: "left" }}>Titre</th>
-            <th style={{ textAlign: "left" }}>Type</th>
-            <th style={{ textAlign: "left" }}>Statut</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item) => (
-            <tr key={item.id} style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-              <td>{item.title}</td>
-              <td>{item.type}</td>
-              <td>{item.status}</td>
-              <td style={{ textAlign: "right" }}>
-                <button
-                  type="button"
-                  onClick={() => router.push(`/admin/realisations/${item.id}/edit`)}
-                  style={{ marginRight: 8 }}
-                >
-                  Éditer
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => router.push(`/admin/realisations/${item.id}/delete`)}
-                >
-                  Supprimer
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
   );
 }

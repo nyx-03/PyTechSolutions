@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import RealisationForm from "@/components/admin/RealisationForm/RealisationForm";
+import ui from "@/styles/ui.module.css";
 
 const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_BASE = RAW_API_BASE
@@ -83,30 +84,56 @@ export default function EditRealisationPage() {
   }
 
   if (loading) {
-    return <p>Chargement de la réalisation…</p>;
+    return (
+      <div className={ui.pageNarrow}>
+        <p className={ui.text}>Chargement de la réalisation…</p>
+      </div>
+    );
   }
 
   if (!initialData) {
-    return <p>Réalisation introuvable.</p>;
+    return (
+      <div className={ui.pageNarrow}>
+        <p className={ui.text}>Réalisation introuvable.</p>
+      </div>
+    );
   }
 
   return (
-    <div style={{ maxWidth: 720 }}>
-      <h1 style={{ marginTop: 0 }}>Éditer la réalisation</h1>
+    <div className={ui.page}>
+      <div className={ui.pageNarrow}>
+        <header className={ui.hero}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <h1 className={ui.title}>Éditer la réalisation</h1>
+            <button
+              type="button"
+              className={ui.secondaryButton}
+              onClick={() => router.push("/admin/realisations")}
+            >
+              Retour
+            </button>
+          </div>
+          <p className={ui.text}>
+            Modifie les informations ci-dessous puis enregistre les changements.
+          </p>
+        </header>
 
-      {error && (
-        <div style={{ padding: 12, border: "1px solid rgba(255,0,0,0.4)" }}>
-          {error}
+        {error && (
+          <div className={ui.panel}>
+            <div className={ui.error}>{error}</div>
+          </div>
+        )}
+
+        <div className={ui.panel}>
+          <RealisationForm
+            initialData={initialData}
+            onSubmit={handleUpdate}
+            onCancel={() => router.push("/admin/realisations")}
+            submitLabel="Enregistrer"
+            loading={saving}
+          />
         </div>
-      )}
-
-      <RealisationForm
-        initialData={initialData}
-        onSubmit={handleUpdate}
-        onCancel={() => router.push("/admin/realisations")}
-        submitLabel="Enregistrer"
-        loading={saving}
-      />
+      </div>
     </div>
   );
 }

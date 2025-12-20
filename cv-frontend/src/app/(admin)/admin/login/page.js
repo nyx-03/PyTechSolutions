@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import ui from "@/styles/ui.module.css";
 
-const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ||
-  "http://localhost:8000/api";
+const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
+const API_BASE = RAW_API_BASE
+  ? (RAW_API_BASE.endsWith("/") ? RAW_API_BASE.slice(0, -1) : RAW_API_BASE)
+  : "http://localhost:8000/api";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -30,7 +32,6 @@ export default function AdminLoginPage() {
 
       if (!res.ok) {
         setError(data?.detail || "Identifiants invalides.");
-        setLoading(false);
         return;
       }
 
@@ -47,46 +48,55 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div style={{ maxWidth: 420 }}>
-      <h1 style={{ marginTop: 0 }}>Connexion admin</h1>
+    <div className={ui.pageNarrow}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <h1 className={ui.title}>Connexion admin</h1>
+      </div>
 
-      <form onSubmit={handleSubmit} style={{ display: "grid", gap: 12 }}>
-        <label style={{ display: "grid", gap: 6 }}>
-          <span>Username</span>
-          <input
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            autoComplete="username"
-            required
-          />
-        </label>
+      <div className={ui.panel} style={{ marginTop: 16, maxWidth: 520 }}>
+        <form onSubmit={handleSubmit} style={{ display: "grid", gap: 12 }}>
+          <label style={{ display: "grid", gap: 6 }}>
+            <span className={ui.text}>Username</span>
+            <input
+              className={ui.input}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              autoComplete="username"
+              required
+              disabled={loading}
+            />
+          </label>
 
-        <label style={{ display: "grid", gap: 6 }}>
-          <span>Password</span>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete="current-password"
-            required
-          />
-        </label>
+          <label style={{ display: "grid", gap: 6 }}>
+            <span className={ui.text}>Password</span>
+            <input
+              className={ui.input}
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
+              required
+              disabled={loading}
+            />
+          </label>
 
-        {error && (
-          <div style={{ padding: 10, border: "1px solid rgba(255,0,0,0.3)" }}>
-            {error}
+          {error && (
+            <div style={{ marginTop: 4 }}>
+              <span className={ui.error}>{error}</span>
+            </div>
+          )}
+
+          <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+            <button type="submit" className={ui.primaryButton} disabled={loading}>
+              {loading ? "Connexion…" : "Se connecter"}
+            </button>
           </div>
-        )}
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Connexion…" : "Se connecter"}
-        </button>
-      </form>
-
-      <p style={{ marginTop: 12, opacity: 0.8 }}>
-        Note : on stocke temporairement les tokens en sessionStorage. Ensuite on
-        passera au refresh token en cookie HttpOnly.
-      </p>
+          <p className={ui.text} style={{ marginTop: 12, opacity: 0.8 }}>
+            Note : on stocke temporairement les tokens en sessionStorage. Ensuite on passera au refresh token en cookie HttpOnly.
+          </p>
+        </form>
+      </div>
     </div>
   );
 }

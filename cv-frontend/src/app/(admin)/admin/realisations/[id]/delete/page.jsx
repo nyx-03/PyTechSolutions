@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import ui from "@/styles/ui.module.css";
 
 const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_BASE = RAW_API_BASE
@@ -72,46 +73,68 @@ export default function DeleteRealisationPage() {
   }
 
   if (loading) {
-    return <p>Chargement…</p>;
+    return (
+      <div className={ui.pageNarrow}>
+        <p className={ui.text}>Chargement…</p>
+      </div>
+    );
   }
 
   return (
-    <div style={{ maxWidth: 600 }}>
-      <h1 style={{ marginTop: 0 }}>Supprimer la réalisation</h1>
+    <div className={ui.page}>
+      <div className={ui.pageNarrow}>
+        <header className={ui.hero}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <h1 className={ui.title}>Supprimer la réalisation</h1>
+            <button
+              type="button"
+              className={ui.secondaryButton}
+              onClick={() => router.push("/admin/realisations")}
+            >
+              Retour
+            </button>
+          </div>
+        </header>
 
-      <p>
-        Tu es sur le point de supprimer définitivement la réalisation :
-      </p>
+        {error && (
+          <div className={ui.panel}>
+            <div className={ui.error}>{error}</div>
+          </div>
+        )}
 
-      <p style={{ fontWeight: 700 }}>
-        “{title}”
-      </p>
+        <div className={ui.panel}>
+          <p className={ui.text}>
+            Tu es sur le point de supprimer définitivement la réalisation suivante :
+          </p>
 
-      <p style={{ color: "#ff6b6b" }}>
-        Cette action est irréversible.
-      </p>
+          <p className={ui.text} style={{ fontWeight: 700 }}>
+            “{title}”
+          </p>
 
-      {error && (
-        <div style={{ padding: 12, border: "1px solid rgba(255,0,0,0.4)" }}>
-          {error}
+          <p className={ui.error}>
+            Cette action est irréversible.
+          </p>
+
+          <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
+            <button
+              type="button"
+              className={ui.primaryButton}
+              onClick={handleDelete}
+              disabled={deleting}
+            >
+              {deleting ? "Suppression…" : "Confirmer la suppression"}
+            </button>
+
+            <button
+              type="button"
+              className={ui.secondaryButton}
+              onClick={() => router.push("/admin/realisations")}
+              disabled={deleting}
+            >
+              Annuler
+            </button>
+          </div>
         </div>
-      )}
-
-      <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
-        <button
-          type="button"
-          onClick={handleDelete}
-          disabled={deleting}
-        >
-          {deleting ? "Suppression…" : "Confirmer la suppression"}
-        </button>
-
-        <button
-          type="button"
-          onClick={() => router.push("/admin/realisations")}
-        >
-          Annuler
-        </button>
       </div>
     </div>
   );

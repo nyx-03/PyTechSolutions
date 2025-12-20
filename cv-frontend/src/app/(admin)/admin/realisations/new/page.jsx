@@ -57,36 +57,38 @@ export default function NewRealisationPage() {
   }
 
   return (
-    <div className={ui.pageNarrow}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h1 className={ui.title}>Nouvelle réalisation</h1>
+    <div className={ui.page}>
+      <div className={ui.pageNarrow}>
+        <header className={ui.hero}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <h1 className={ui.title}>Nouvelle réalisation</h1>
+            <button
+              type="button"
+              className={ui.secondaryButton}
+              onClick={() => router.push("/admin/realisations")}
+            >
+              Retour
+            </button>
+          </div>
+          <p className={ui.text}>
+            Remplis les informations ci-dessous puis valide pour créer une nouvelle réalisation.
+          </p>
+        </header>
 
-        <button
-          type="button"
-          className={ui.secondaryButton}
-          onClick={() => router.push("/admin/realisations")}
-        >
-          Retour
-        </button>
-      </div>
+        {error && (
+          <div className={ui.panel}>
+            <div className={ui.error}>{error}</div>
+          </div>
+        )}
 
-      <p className={ui.text} style={{ marginTop: 8 }}>
-        Remplis les informations ci-dessous puis valide pour créer une nouvelle réalisation.
-      </p>
-
-      {error && (
-        <div className={ui.panel} style={{ marginTop: 12 }}>
-          <div className={ui.error}>{error}</div>
+        <div className={ui.panel}>
+          <RealisationForm
+            onSubmit={handleCreate}
+            onCancel={() => router.push("/admin/realisations")}
+            submitLabel="Créer"
+            loading={loading}
+          />
         </div>
-      )}
-
-      <div className={ui.panel} style={{ marginTop: 16 }}>
-        <RealisationForm
-          onSubmit={handleCreate}
-          onCancel={() => router.push("/admin/realisations")}
-          submitLabel="Créer"
-          loading={loading}
-        />
       </div>
     </div>
   );
