@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ui from "@/styles/ui.module.css";
+import t from "@/styles/adminTables.module.css";
 
 const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_BASE = RAW_API_BASE
@@ -91,48 +92,52 @@ export default function AdminUsersPage() {
   return (
     <div className={ui.page}>
       <div className={ui.pageWide}>
-        <h1 className={ui.title}>Utilisateurs & rôles</h1>
-        <p className={ui.text} style={{ marginTop: 8 }}>
-          Gérez les rôles des utilisateurs enregistrés.
-        </p>
+        <header className={ui.hero}>
+          <h1 className={ui.title}>Utilisateurs & rôles</h1>
+          <p className={ui.subtitle}>
+            Gérez les rôles des utilisateurs enregistrés.
+          </p>
+        </header>
 
-        <div className={ui.panel} style={{ marginTop: 16 }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
-            <thead>
-              <tr>
-                <th style={{ textAlign: "left", padding: "10px 12px" }}>Username</th>
-                <th style={{ textAlign: "left", padding: "10px 12px" }}>Email</th>
-                <th style={{ textAlign: "left", padding: "10px 12px" }}>Rôle</th>
-                <th style={{ textAlign: "left", padding: "10px 12px" }}>Statut</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user.id} style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-                  <td style={{ padding: "10px 12px" }}>{user.username}</td>
-                  <td style={{ padding: "10px 12px" }}>{user.email || "—"}</td>
-                  <td style={{ padding: "10px 12px" }}>
-                    <div style={{ minWidth: 180 }}>
-                      <select
-                        className={ui.input}
-                        value={user.roles_display?.[0] || "Viewer"}
-                        onChange={(e) => updateRoles(user.id, [e.target.value])}
-                      >
-                        {ALL_ROLES.map((role) => (
-                          <option key={role} value={role}>
-                            {role}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </td>
-                  <td style={{ padding: "10px 12px", opacity: 0.7 }}>
-                    {user.is_superuser ? "Superuser" : user.is_staff ? "Staff" : ""}
-                  </td>
+        <div className={ui.panel}>
+          <div className={t.tableWrapper}>
+            <table className={t.table}>
+              <thead>
+                <tr>
+                  <th className={t.th}>Username</th>
+                  <th className={t.th}>Email</th>
+                  <th className={t.th}>Rôle</th>
+                  <th className={t.th}>Statut</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user.id} className={t.tr}>
+                    <td className={t.td}>{user.username}</td>
+                    <td className={t.td}>{user.email || "—"}</td>
+                    <td className={t.td}>
+                      <div className={t.roleSelectWrapper}>
+                        <select
+                          className={ui.input}
+                          value={user.roles_display?.[0] || "Viewer"}
+                          onChange={(e) => updateRoles(user.id, [e.target.value])}
+                        >
+                          {ALL_ROLES.map((role) => (
+                            <option key={role} value={role}>
+                              {role}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </td>
+                    <td className={`${t.td} ${t.statusDim}`}>
+                      {user.is_superuser ? "Superuser" : user.is_staff ? "Staff" : ""}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

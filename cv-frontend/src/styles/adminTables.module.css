@@ -1,0 +1,45 @@
+.tableWrapper {
+  width: 100%;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+@media (min-width: 1200px) {
+  .table {
+    font-size: 0.95rem;
+  }
+}
+
+.th {
+  text-align: left;
+  padding: 10px 12px;
+}
+
+.tr {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.td {
+  padding: 10px 12px;
+}
+
+.actions {
+  text-align: right;
+}
+
+.actionsInner {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.roleSelectWrapper {
+  min-width: 180px;
+}
+
+.statusDim {
+  opacity: 0.7;
+}

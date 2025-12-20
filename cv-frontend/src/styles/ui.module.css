@@ -233,3 +233,10 @@
   color: #fca5a5;
   font-weight: 600;
 }
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pt-space-3);
+}
