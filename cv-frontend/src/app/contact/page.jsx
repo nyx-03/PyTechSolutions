@@ -49,11 +49,11 @@ export default function ContactPage() {
       <section className={styles.layout}>
         <div className={styles.infoCard}>
           <h2 className={styles.sectionTitle}>Coordonnées</h2>
-          <p style={{ marginBottom: 6 }}>📍 Malbuisson / France</p>
-          <p style={{ marginBottom: 6 }}>
+          <p className={styles.infoLine}>📍 Malbuisson / France</p>
+          <p className={styles.infoLine}>
             📧 <a href="mailto:contact@pytechsolutions.fr">contact@pytechsolutions.fr</a>
           </p>
-          <p style={{ marginBottom: 0 }}>⏱️ Réponse sous 24–48h ouvrées</p>
+          <p className={styles.infoLineLast}>⏱️ Réponse sous 24–48h ouvrées</p>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>

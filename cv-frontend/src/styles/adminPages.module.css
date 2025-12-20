@@ -1,0 +1,13 @@
+/* ==============================
+   Admin pages helpers
+   ============================== */
+
+.actionsRow {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.strong {
+  font-weight: 700;
+}

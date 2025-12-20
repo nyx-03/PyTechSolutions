@@ -103,7 +103,7 @@ export default function EditRealisationPage() {
     <div className={ui.page}>
       <div className={ui.pageNarrow}>
         <header className={ui.hero}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div className={ui.headerRow}>
             <h1 className={ui.title}>Éditer la réalisation</h1>
             <button
               type="button"

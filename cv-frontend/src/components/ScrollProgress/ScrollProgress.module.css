@@ -81,6 +81,7 @@
 
 .fill {
   width: 100%;
+  height: var(--progress);
   border-radius: 999px;
   background: linear-gradient(
     to top,

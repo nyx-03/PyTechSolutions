@@ -64,3 +64,12 @@
 .error {
   composes: error from "@/styles/ui.module.css";
 }
+
+/* Info lines spacing (replaces inline margins) */
+.infoLine {
+  margin-bottom: 6px;
+}
+
+.infoLineLast {
+  margin-bottom: 0;
+}

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import ui from "@/styles/ui.module.css";
+import styles from "@/styles/adminPages.module.css";
 
 const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_BASE = RAW_API_BASE
@@ -84,7 +85,7 @@ export default function DeleteRealisationPage() {
     <div className={ui.page}>
       <div className={ui.pageNarrow}>
         <header className={ui.hero}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div className={ui.headerRow}>
             <h1 className={ui.title}>Supprimer la réalisation</h1>
             <button
               type="button"
@@ -107,7 +108,7 @@ export default function DeleteRealisationPage() {
             Tu es sur le point de supprimer définitivement la réalisation suivante :
           </p>
 
-          <p className={ui.text} style={{ fontWeight: 700 }}>
+          <p className={`${ui.text} ${styles.strong}`}>
             “{title}”
           </p>
 
@@ -115,7 +116,7 @@ export default function DeleteRealisationPage() {
             Cette action est irréversible.
           </p>
 
-          <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
+          <div className={styles.actionsRow}>
             <button
               type="button"
               className={ui.primaryButton}

@@ -23,7 +23,7 @@ export default function ScrollProgress({
       <div className={styles.track}>
         <div
           className={styles.fill}
-          style={{ height: `${progress}%` }}
+          style={{ "--progress": `${progress}%` }}
         />
 
         <div className={styles.steps}>
