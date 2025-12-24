@@ -1,7 +1,8 @@
 import pytest
 from rest_framework.test import APIClient
 
-from api.models import Realisation, Testimonial as TestimonialModel
+from api.models import Realisation
+from testimonials.models import Testimonial as TestimonialModel
 from contact.models import ContactMessage
 
 pytestmark = pytest.mark.django_db
@@ -34,16 +35,27 @@ def test_public_realisations_detail_published_ok_draft_404():
 
 
 def test_public_testimonials_list():
-    kwargs = {"name": "Alice", "quote": "Top", "order": 1}
-    # If the model uses a publication flag, ensure the item is visible on public endpoints.
-    if hasattr(TestimonialModel, "is_published"):
-        kwargs["is_published"] = True
-    TestimonialModel.objects.create(**kwargs)
+    from django.utils import timezone
+
+    TestimonialModel.objects.create(
+        author_name="Alice",
+        quote="This is a published testimonial with enough length.",
+        sort_order=1,
+        is_published=True,
+        published_at=timezone.now(),
+    )
+
+    # Sanity checks: ensure we are using the dedicated testimonials app model
+    assert TestimonialModel._meta.label == "testimonials.Testimonial"
+    assert TestimonialModel.objects.filter(is_published=True).count() == 1
 
     client = APIClient()
     resp = client.get("/api/testimonials/")
     assert resp.status_code == 200
-    assert len(resp.json()) == 1
+
+    data = resp.json()
+    assert len(data) == 1
+    assert data[0]["author_name"] == "Alice"
 
 
 def test_contact_post_creates_message_and_validates_length():

@@ -7,5 +7,6 @@ urlpatterns = [
     # API endpoints
     path('api/cv/<str:slug>/', cv_detail, name="cv-detail"),
     path('api/contact/', include('contact.urls')),
+    path('api/testimonials/', include('testimonials.urls')),
     path('api/', include('api.urls')),
 ]
