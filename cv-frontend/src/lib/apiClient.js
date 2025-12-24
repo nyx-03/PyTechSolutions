@@ -68,6 +68,12 @@ export async function apiFetch(path, options = {}) {
   }
   baseOptions.headers = Object.fromEntries(headers.entries());
 
+  // If Content-Type is JSON and body is a plain object, stringify it
+  const ct = headers.get("Content-Type") || "";
+  if (hasBody && ct.includes("application/json") && typeof baseOptions.body === "object") {
+    baseOptions.body = JSON.stringify(baseOptions.body);
+  }
+
   // 1) First attempt
   let res = await fetch(url, baseOptions);
 
