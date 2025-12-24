@@ -37,6 +37,11 @@ PytechSolutions_Next_Django/
 - **Django**
 - Django REST Framework
 - JWT authentication (SimpleJWT)
+- HttpOnly cookie authentication
+- Token rotation & blacklist
+- Contact app (DB + email)
+- Testimonials app
+- Pytest test suite
 - Role-based access control (Admin / Editor / Viewer)
 - Architecture orientée API
 - Gestion des données et logique métier côté serveur
@@ -68,6 +73,8 @@ Le projet inclut un **panneau d’administration personnalisé**, développé av
 - Authentification sécurisée via JWT
 - Gestion des utilisateurs et de leurs rôles
 - CRUD complet des réalisations (création, édition, suppression)
+- CRUD des témoignages (admin only)
+- Gestion des messages de contact
 - Séparation stricte entre le site public et l’interface admin
 
 L’interface admin est accessible via :
@@ -82,10 +89,22 @@ Les permissions sont entièrement contrôlées côté backend Django.
 
 ## 🚧 État du projet
 
-🟡 **En cours de développement actif**
+Le backend est désormais structuré, testé et prêt pour la production.  
+Le frontend public et admin sont fonctionnels.  
+Les prochaines étapes concernent l’UI/UX finale, l’affichage dynamique des contenus et le déploiement.
 
-Le site public et le panneau d’administration sont fonctionnels.
-Les prochaines étapes concernent l’enrichissement du contenu, l’amélioration de l’UI et la préparation au déploiement.
+---
+
+## ✅ Fonctionnalités implémentées
+
+- Authentification JWT via cookies HttpOnly
+- Refresh token automatique
+- Permissions et rôles utilisateurs
+- API admin sécurisée
+- Gestion des réalisations
+- Gestion des témoignages
+- Formulaire de contact (DB + email)
+- Tests automatisés (pytest)
 
 ---
 
