@@ -73,6 +73,9 @@ export default function AdminLayout({ children }) {
           <Link href="/admin/realisations" className={ui.secondaryButton}>
             Réalisations
           </Link>
+          <Link href="/admin/testimonials" className={ui.secondaryButton}>
+            Témoignages
+          </Link>
         </nav>
 
         <div className={layout.logout}>

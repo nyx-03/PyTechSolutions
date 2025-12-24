@@ -70,8 +70,21 @@ export async function apiFetch(path, options = {}) {
 
   // If Content-Type is JSON and body is a plain object, stringify it
   const ct = headers.get("Content-Type") || "";
-  if (hasBody && ct.includes("application/json") && typeof baseOptions.body === "object") {
-    baseOptions.body = JSON.stringify(baseOptions.body);
+  const body = baseOptions.body;
+  const isNonJsonBody =
+    body instanceof FormData ||
+    body instanceof URLSearchParams ||
+    body instanceof Blob ||
+    body instanceof ArrayBuffer;
+
+  if (
+    hasBody &&
+    ct.includes("application/json") &&
+    body !== null &&
+    typeof body === "object" &&
+    !isNonJsonBody
+  ) {
+    baseOptions.body = JSON.stringify(body);
   }
 
   // 1) First attempt
