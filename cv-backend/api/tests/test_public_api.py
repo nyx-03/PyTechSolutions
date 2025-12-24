@@ -1,7 +1,8 @@
 import pytest
 from rest_framework.test import APIClient
 
-from api.models import Realisation, Testimonial as TestimonialModel, ContactMessage
+from api.models import Realisation, Testimonial as TestimonialModel
+from contact.models import ContactMessage
 
 pytestmark = pytest.mark.django_db
 

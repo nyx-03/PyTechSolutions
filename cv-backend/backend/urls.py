@@ -6,5 +6,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # API endpoints
     path('api/cv/<str:slug>/', cv_detail, name="cv-detail"),
+    path('api/contact/', include('contact.urls')),
     path('api/', include('api.urls')),
 ]

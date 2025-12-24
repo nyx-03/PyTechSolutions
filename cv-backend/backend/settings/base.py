@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     # Local
     "api",
     "cv",
+    "contact", 
 ]
 
 MIDDLEWARE = [
