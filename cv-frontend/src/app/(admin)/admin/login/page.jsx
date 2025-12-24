@@ -4,11 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ui from "@/styles/ui.module.css";
 import auth from "@/styles/auth.module.css";
-
-const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
-const API_BASE = RAW_API_BASE
-  ? (RAW_API_BASE.endsWith("/") ? RAW_API_BASE.slice(0, -1) : RAW_API_BASE)
-  : "http://localhost:8000/api";
+import { apiFetch } from "@/lib/apiClient";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -23,7 +19,7 @@ export default function AdminLoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_BASE}/auth/login/`, {
+      const res = await apiFetch("/auth/login/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -32,13 +28,9 @@ export default function AdminLoginPage() {
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        setError(data?.detail || "Identifiants invalides.");
+        setError(data?.detail || "Identifiants invalides ou accès refusé.");
         return;
       }
-
-      // Stockage simple (on passera en cookie HttpOnly ensuite)
-      sessionStorage.setItem("access_token", data.access);
-      sessionStorage.setItem("refresh_token", data.refresh);
 
       router.replace("/admin");
     } catch (err) {
@@ -94,7 +86,7 @@ export default function AdminLoginPage() {
           </div>
 
           <p className={`${ui.text} ${auth.note}`}>
-            Note : on stocke temporairement les tokens en sessionStorage. Ensuite on passera au refresh token en cookie HttpOnly.
+            Note : l’authentification utilise des cookies sécurisés HttpOnly (aucun token stocké côté navigateur).
           </p>
         </form>
       </div>

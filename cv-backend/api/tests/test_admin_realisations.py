@@ -29,15 +29,22 @@ def ensure_admin_group_with_realisations_perms():
 
     return group
 
-def login_token(username, password):
+def login_access_cookie(username, password):
+    """Login and return the access token value from the HttpOnly cookie."""
     client = APIClient()
-    data = client.post("/api/auth/login/", {"username": username, "password": password}, format="json").json()
-    return data["access"]
+    resp = client.post(
+        "/api/auth/login/",
+        {"username": username, "password": password},
+        format="json",
+    )
+    assert resp.status_code == 200
+    assert "pt_access" in resp.cookies, "Expected pt_access cookie to be set on login"
+    return resp.cookies["pt_access"].value
 
 def test_admin_realisations_requires_staff():
     User.objects.create_user(username="u", password="pass123", is_staff=False)
     client = APIClient()
-    access = login_token("u", "pass123")
+    access = login_access_cookie("u", "pass123")
     client.credentials(HTTP_AUTHORIZATION=f"Bearer {access}")
 
     resp = client.get("/api/admin/realisations/")
@@ -53,7 +60,7 @@ def test_admin_realisations_crud_staff_ok():
     assert admin.groups.filter(name="Admin").exists(), "Admin user is not in 'Admin' group"
 
     client = APIClient()
-    access = login_token("admin", "pass123")
+    access = login_access_cookie("admin", "pass123")
     client.credentials(HTTP_AUTHORIZATION=f"Bearer {access}")
 
     # CREATE

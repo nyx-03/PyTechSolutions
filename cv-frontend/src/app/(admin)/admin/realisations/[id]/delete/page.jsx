@@ -4,16 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import ui from "@/styles/ui.module.css";
 import styles from "@/styles/adminPages.module.css";
-
-const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
-const API_BASE = RAW_API_BASE
-  ? (RAW_API_BASE.endsWith("/") ? RAW_API_BASE.slice(0, -1) : RAW_API_BASE)
-  : "http://localhost:8000/api";
-
-function getAccessToken() {
-  if (typeof window === "undefined") return null;
-  return sessionStorage.getItem("access_token");
-}
+import { apiFetch, apiJson } from "@/lib/apiClient";
 
 export default function DeleteRealisationPage() {
   const router = useRouter();
@@ -27,21 +18,10 @@ export default function DeleteRealisationPage() {
   useEffect(() => {
     async function fetchRealisation() {
       try {
-        const res = await fetch(`${API_BASE}/admin/realisations/${id}/`, {
-          headers: {
-            Authorization: `Bearer ${getAccessToken()}`,
-          },
-          cache: "no-store",
-        });
-
-        if (!res.ok) {
-          throw new Error("Impossible de charger la réalisation");
-        }
-
-        const data = await res.json();
-        setTitle(data.title || "");
+        const data = await apiJson(`/admin/realisations/${id}/`);
+        setTitle(data?.title || "");
       } catch (err) {
-        setError(err.message);
+        setError(err?.message || "Impossible de charger la réalisation");
       } finally {
         setLoading(false);
       }
@@ -55,11 +35,8 @@ export default function DeleteRealisationPage() {
     setDeleting(true);
 
     try {
-      const res = await fetch(`${API_BASE}/admin/realisations/${id}/`, {
+      const res = await apiFetch(`/admin/realisations/${id}/`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${getAccessToken()}`,
-        },
       });
 
       if (!res.ok) {
@@ -68,7 +45,7 @@ export default function DeleteRealisationPage() {
 
       router.push("/admin/realisations");
     } catch (err) {
-      setError(err.message);
+      setError(err?.message || "Suppression refusée (permissions ?)");
       setDeleting(false);
     }
   }

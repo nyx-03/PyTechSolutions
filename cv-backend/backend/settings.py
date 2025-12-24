@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 
 from dotenv import load_dotenv
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,7 +41,10 @@ if not SECRET_KEY:
             "Set it in the environment (or in a .env file for local dev)."
         )
 
-ALLOWED_HOSTS = _env_list("DJANGO_ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
+ALLOWED_HOSTS = _env_list(
+    "DJANGO_ALLOWED_HOSTS",
+    default=["localhost", "127.0.0.1", "192.168.1.140"],
+)
 
 
 # Application definition
@@ -167,16 +171,38 @@ STATIC_URL = 'static/'
 # In production, tighten this list.
 CORS_ALLOWED_ORIGINS = _env_list(
     "CORS_ALLOWED_ORIGINS",
-    default=["http://localhost:3000", "http://127.0.0.1:3000"],
+    default=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://192.168.1.140:3000",
+    ],
 )
 
 # No cookies/session auth yet – keep credentials disabled
-CORS_ALLOW_CREDENTIALS = False
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "x-csrftoken",
+]
 
 CSRF_TRUSTED_ORIGINS = _env_list(
     "CSRF_TRUSTED_ORIGINS",
-    default=["http://localhost:3000", "http://127.0.0.1:3000"],
+    default=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://192.168.1.140:3000",
+    ],
 )
+
+# CSRF settings for cookie-based auth
+CSRF_COOKIE_HTTPONLY = False  # must be readable by browser to send X-CSRFToken
+CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_NAME = "csrftoken"
+
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SECURE = not DEBUG
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -198,6 +224,10 @@ API_BASE_PATH = "/api/"
 
 from datetime import timedelta
 
+# JWT strategy:
+# - Tokens are issued and stored in HttpOnly cookies (Next.js compatible)
+# - Access token is short-lived
+# - Refresh token is rotated and blacklisted on logout
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
@@ -205,4 +235,11 @@ SIMPLE_JWT = {
     "BLACKLIST_AFTER_ROTATION": True,
     "AUTH_HEADER_TYPES": ("Bearer",),
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+
+    # Cookie settings (used by custom login/refresh views)
+    "AUTH_COOKIE": "pt_access",
+    "AUTH_COOKIE_REFRESH": "pt_refresh",
+    "AUTH_COOKIE_HTTP_ONLY": True,
+    "AUTH_COOKIE_SECURE": not DEBUG,
+    "AUTH_COOKIE_SAMESITE": "Lax",
 }

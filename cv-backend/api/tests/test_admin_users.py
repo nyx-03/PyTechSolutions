@@ -7,14 +7,15 @@ pytestmark = pytest.mark.django_db
 User = get_user_model()
 
 
-def login(client, username, password):
+def login_access_cookie(client, username, password):
     resp = client.post(
         "/api/auth/login/",
         {"username": username, "password": password},
         format="json",
     )
     assert resp.status_code == 200
-    return resp.json()
+    assert "pt_access" in resp.cookies, "Expected pt_access cookie to be set on login"
+    return resp.cookies["pt_access"].value
 
 
 def auth_client(access_token):
@@ -45,9 +46,9 @@ def test_admin_users_forbidden_for_non_admin_role():
     user.groups.add(editor_group)
 
     client = APIClient()
-    tokens = login(client, "editor", "pass123")
+    access = login_access_cookie(client, "editor", "pass123")
 
-    c = auth_client(tokens["access"])
+    c = auth_client(access)
     resp = c.get("/api/admin/users/")
     assert resp.status_code == 403
 
@@ -71,9 +72,9 @@ def test_admin_users_list_ok_for_admin_group():
     )
 
     client = APIClient()
-    tokens = login(client, "admin", "pass123")
+    access = login_access_cookie(client, "admin", "pass123")
 
-    c = auth_client(tokens["access"])
+    c = auth_client(access)
     resp = c.get("/api/admin/users/")
     assert resp.status_code == 200
 
@@ -104,9 +105,9 @@ def test_admin_users_can_update_roles_via_patch():
     target.groups.add(viewer_group)
 
     client = APIClient()
-    tokens = login(client, "admin", "pass123")
+    access = login_access_cookie(client, "admin", "pass123")
 
-    c = auth_client(tokens["access"])
+    c = auth_client(access)
 
     resp = c.patch(
         f"/api/admin/users/{target.id}/",

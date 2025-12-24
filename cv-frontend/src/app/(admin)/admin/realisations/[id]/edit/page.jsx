@@ -4,16 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import RealisationForm from "@/components/admin/RealisationForm/RealisationForm";
 import ui from "@/styles/ui.module.css";
-
-const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
-const API_BASE = RAW_API_BASE
-  ? (RAW_API_BASE.endsWith("/") ? RAW_API_BASE.slice(0, -1) : RAW_API_BASE)
-  : "http://localhost:8000/api";
-
-function getAccessToken() {
-  if (typeof window === "undefined") return null;
-  return sessionStorage.getItem("access_token");
-}
+import { apiJson } from "@/lib/apiClient";
 
 export default function EditRealisationPage() {
   const router = useRouter();
@@ -28,18 +19,8 @@ export default function EditRealisationPage() {
     async function fetchRealisation() {
       setError("");
       try {
-        const res = await fetch(`${API_BASE}/admin/realisations/${id}/`, {
-          headers: {
-            Authorization: `Bearer ${getAccessToken()}`,
-          },
-          cache: "no-store",
-        });
+        const data = await apiJson(`/admin/realisations/${id}/`);
 
-        if (!res.ok) {
-          throw new Error("Impossible de charger la réalisation");
-        }
-
-        const data = await res.json();
         setInitialData({
           title: data.title || "",
           content: data.content || "",
@@ -47,7 +28,7 @@ export default function EditRealisationPage() {
           status: data.status || "draft",
         });
       } catch (err) {
-        setError(err.message);
+        setError(err?.message || "Impossible de charger la réalisation");
       } finally {
         setLoading(false);
       }
@@ -61,23 +42,21 @@ export default function EditRealisationPage() {
     setSaving(true);
 
     try {
-      const res = await fetch(`${API_BASE}/admin/realisations/${id}/`, {
+      await apiJson(`/admin/realisations/${id}/`, {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getAccessToken()}`,
-        },
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data?.detail || "Mise à jour refusée (permissions ?)");
-      }
-
       router.push("/admin/realisations");
     } catch (err) {
-      setError(err.message);
+      const payload = err?.payload;
+      if (payload && typeof payload === "object" && !Array.isArray(payload) && !payload.detail) {
+        const firstKey = Object.keys(payload)[0];
+        const firstMsg = Array.isArray(payload[firstKey]) ? payload[firstKey][0] : String(payload[firstKey]);
+        setError(`${firstKey}: ${firstMsg}`);
+      } else {
+        setError(err?.message || "Mise à jour refusée (permissions ?)");
+      }
     } finally {
       setSaving(false);
     }

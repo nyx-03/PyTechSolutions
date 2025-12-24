@@ -4,16 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ui from "@/styles/ui.module.css";
 import t from "@/styles/adminTables.module.css";
-
-const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
-const API_BASE = RAW_API_BASE
-  ? (RAW_API_BASE.endsWith("/") ? RAW_API_BASE.slice(0, -1) : RAW_API_BASE)
-  : "http://localhost:8000/api";
-
-function getAccessToken() {
-  if (typeof window === "undefined") return null;
-  return sessionStorage.getItem("access_token");
-}
+import { apiJson } from "@/lib/apiClient";
 
 export default function AdminRealisationsPage() {
   const router = useRouter();
@@ -26,18 +17,7 @@ export default function AdminRealisationsPage() {
     setError("");
 
     try {
-      const res = await fetch(`${API_BASE}/admin/realisations/`, {
-        headers: {
-          Authorization: `Bearer ${getAccessToken()}`,
-        },
-        cache: "no-store",
-      });
-
-      if (!res.ok) {
-        throw new Error("Impossible de charger les réalisations");
-      }
-
-      const data = await res.json();
+      const data = await apiJson("/admin/realisations/");
       setItems(data);
     } catch (err) {
       setError(err.message);

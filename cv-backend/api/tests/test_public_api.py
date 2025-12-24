@@ -33,7 +33,11 @@ def test_public_realisations_detail_published_ok_draft_404():
 
 
 def test_public_testimonials_list():
-    TestimonialModel.objects.create(name="Alice", quote="Top", order=1)
+    kwargs = {"name": "Alice", "quote": "Top", "order": 1}
+    # If the model uses a publication flag, ensure the item is visible on public endpoints.
+    if hasattr(TestimonialModel, "is_published"):
+        kwargs["is_published"] = True
+    TestimonialModel.objects.create(**kwargs)
 
     client = APIClient()
     resp = client.get("/api/testimonials/")

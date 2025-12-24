@@ -5,16 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import ui from "@/styles/ui.module.css";
 import layout from "@/styles/adminLayout.module.css";
-
-const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
-const API_BASE = RAW_API_BASE
-  ? (RAW_API_BASE.endsWith("/") ? RAW_API_BASE.slice(0, -1) : RAW_API_BASE)
-  : "http://localhost:8000/api";
-
-function getAccessToken() {
-  if (typeof window === "undefined") return null;
-  return sessionStorage.getItem("access_token");
-}
+import { apiFetch } from "@/lib/apiClient";
 
 export default function AdminLayout({ children }) {
   const router = useRouter();
@@ -28,23 +19,21 @@ export default function AdminLayout({ children }) {
       return;
     }
 
-    const access = getAccessToken();
-    if (!access) {
-      router.replace("/admin/login");
-      return;
-    }
-
-    // Verify token via /api/auth/me/
-    (async () => {
+    const verifySession = async () => {
       try {
-        const res = await fetch(`${API_BASE}/auth/me/`, {
-          headers: { Authorization: `Bearer ${access}` },
-          cache: "no-store",
-        });
+        // 1) Try /me with cookies
+        let res = await apiFetch("/auth/me/");
+
+        // 2) If unauthorized, try to refresh then retry /me once
+        if (res.status === 401) {
+          const r = await apiFetch("/auth/refresh/", { method: "POST" });
+
+          if (r.ok) {
+            res = await apiFetch("/auth/me/");
+          }
+        }
 
         if (!res.ok) {
-          sessionStorage.removeItem("access_token");
-          sessionStorage.removeItem("refresh_token");
           router.replace("/admin/login");
           return;
         }
@@ -53,7 +42,9 @@ export default function AdminLayout({ children }) {
       } catch (e) {
         router.replace("/admin/login");
       }
-    })();
+    };
+
+    verifySession();
   }, [pathname, router]);
 
   if (!isReady) {
@@ -88,10 +79,12 @@ export default function AdminLayout({ children }) {
           <button
             type="button"
             className={ui.primaryButton}
-            onClick={() => {
-              sessionStorage.removeItem("access_token");
-              sessionStorage.removeItem("refresh_token");
-              router.replace("/admin/login");
+            onClick={async () => {
+              try {
+                await apiFetch("/auth/logout/", { method: "POST" });
+              } finally {
+                router.replace("/admin/login");
+              }
             }}
           >
             Se déconnecter

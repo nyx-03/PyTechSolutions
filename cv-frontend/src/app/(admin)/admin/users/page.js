@@ -3,16 +3,7 @@
 import { useEffect, useState } from "react";
 import ui from "@/styles/ui.module.css";
 import t from "@/styles/adminTables.module.css";
-
-const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
-const API_BASE = RAW_API_BASE
-  ? (RAW_API_BASE.endsWith("/") ? RAW_API_BASE.slice(0, -1) : RAW_API_BASE)
-  : "http://localhost:8000/api";
-
-function getAccessToken() {
-  if (typeof window === "undefined") return null;
-  return sessionStorage.getItem("access_token");
-}
+import { apiJson } from "@/lib/apiClient";
 
 const ALL_ROLES = ["Admin", "Editor", "Viewer"];
 
@@ -26,18 +17,7 @@ export default function AdminUsersPage() {
     setError("");
 
     try {
-      const res = await fetch(`${API_BASE}/admin/users/`, {
-        headers: {
-          Authorization: `Bearer ${getAccessToken()}`,
-        },
-        cache: "no-store",
-      });
-
-      if (!res.ok) {
-        throw new Error("Impossible de charger les utilisateurs");
-      }
-
-      const data = await res.json();
+      const data = await apiJson("/admin/users/");
       setUsers(data);
     } catch (err) {
       setError(err.message);
@@ -48,19 +28,10 @@ export default function AdminUsersPage() {
 
   async function updateRoles(userId, roles) {
     try {
-      const res = await fetch(`${API_BASE}/admin/users/${userId}/`, {
+      await apiJson(`/admin/users/${userId}/`, {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getAccessToken()}`,
-        },
         body: JSON.stringify({ roles }),
       });
-
-      if (!res.ok) {
-        throw new Error("Échec de la mise à jour des rôles");
-      }
-
       await fetchUsers();
     } catch (err) {
       alert(err.message);
