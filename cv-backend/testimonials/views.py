@@ -1,5 +1,5 @@
 from rest_framework import generics, permissions
-from rest_framework.response import Response
+from api.auth.authentication import CookieJWTAuthentication
 
 from .models import Testimonial
 from .serializers import PublicTestimonialSerializer, AdminTestimonialSerializer
@@ -31,6 +31,7 @@ class AdminTestimonialListCreateView(generics.ListCreateAPIView):
 
     serializer_class = AdminTestimonialSerializer
     permission_classes = [IsAdminUser]
+    authentication_classes = [CookieJWTAuthentication]
 
     def get_queryset(self):
         return Testimonial.objects.all()
@@ -41,4 +42,5 @@ class AdminTestimonialDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     serializer_class = AdminTestimonialSerializer
     permission_classes = [IsAdminUser]
+    authentication_classes = [CookieJWTAuthentication]
     queryset = Testimonial.objects.all()

@@ -1,75 +1,66 @@
 .form {
   display: grid;
-  gap: 16px;
+  gap: var(--pt-space-4, 16px);
 }
 
 .field {
   display: grid;
-  gap: 6px;
+  gap: var(--pt-space-2, 8px);
 }
 
-.field span {
+.label {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: var(--pt-text-sm, 0.95rem);
+  opacity: 0.95;
 }
 
-.field input,
-.field textarea,
-.field select {
-  padding: 10px 12px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(0, 0, 0, 0.25);
-  color: inherit;
-}
-
-.field textarea {
-  resize: vertical;
-}
-
-.field input:focus,
-.field textarea:focus,
-.field select:focus {
-  outline: none;
-  border-color: rgba(0, 180, 255, 0.8);
+.help {
+  margin-top: 2px;
+  font-size: var(--pt-text-xs, 0.85rem);
+  opacity: 0.75;
+  line-height: 1.35;
 }
 
 .row {
   display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--pt-space-4, 16px);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
-.checkbox {
+.checkboxRow {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 600;
+  gap: var(--pt-space-3, 12px);
+}
+
+.checkboxRow input {
+  width: 18px;
+  height: 18px;
 }
 
 .actions {
   display: flex;
-  gap: 12px;
-  margin-top: 8px;
-}
-
-.actions button {
-  padding: 10px 16px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.actions button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+  flex-wrap: wrap;
+  gap: var(--pt-space-3, 12px);
+  justify-content: flex-end;
+  margin-top: var(--pt-space-3, 12px);
 }
 
 .error {
-  padding: 12px;
-  border: 1px solid rgba(255, 80, 80, 0.5);
-  background: rgba(255, 80, 80, 0.1);
-  border-radius: 6px;
-  font-size: 0.9rem;
+  padding: var(--pt-space-3, 12px);
+  border: 1px solid rgba(252, 165, 165, 0.6);
+  background: rgba(252, 165, 165, 0.1);
+  border-radius: var(--pt-radius-sm, 10px);
+  font-size: var(--pt-text-sm, 0.95rem);
+  line-height: 1.4;
+}
+
+@media (max-width: 520px) {
+  .actions {
+    justify-content: stretch;
+  }
+
+  .actions > * {
+    width: 100%;
+  }
 }

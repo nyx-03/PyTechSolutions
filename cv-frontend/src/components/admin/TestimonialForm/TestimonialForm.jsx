@@ -92,16 +92,15 @@ export default function TestimonialForm({
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <label className={styles.field}>
-        <span>Auteur</span>
+        <span className={styles.label}>Auteur</span>
         <input
           value={authorName}
           onChange={(event) => setAuthorName(event.target.value)}
-          required
         />
       </label>
 
       <label className={styles.field}>
-        <span>Poste</span>
+        <span className={styles.label}>Poste</span>
         <input
           value={authorRole}
           onChange={(event) => setAuthorRole(event.target.value)}
@@ -109,7 +108,7 @@ export default function TestimonialForm({
       </label>
 
       <label className={styles.field}>
-        <span>Entreprise</span>
+        <span className={styles.label}>Entreprise</span>
         <input
           value={company}
           onChange={(event) => setCompany(event.target.value)}
@@ -117,18 +116,17 @@ export default function TestimonialForm({
       </label>
 
       <label className={styles.field}>
-        <span>Témoignage</span>
+        <span className={styles.label}>Témoignage</span>
         <textarea
           value={quote}
           onChange={(event) => setQuote(event.target.value)}
           rows={6}
-          required
         />
       </label>
 
       <div className={styles.row}>
         <label className={styles.field}>
-          <span>Note (1 à 5)</span>
+          <span className={styles.label}>Note (1 à 5)</span>
           <input
             type="number"
             min="1"
@@ -140,7 +138,7 @@ export default function TestimonialForm({
         </label>
 
         <label className={styles.field}>
-          <span>Ordre d'affichage</span>
+          <span className={styles.label}>Ordre d'affichage</span>
           <input
             type="number"
             step="1"
@@ -150,13 +148,13 @@ export default function TestimonialForm({
         </label>
       </div>
 
-      <label className={styles.checkbox}>
+      <label className={styles.checkboxRow}>
         <input
           type="checkbox"
           checked={isPublished}
           onChange={(event) => setIsPublished(event.target.checked)}
         />
-        <span>Publié</span>
+        <span className={styles.label}>Publié</span>
       </label>
 
       {error && <div className={styles.error}>{error}</div>}
@@ -167,7 +165,12 @@ export default function TestimonialForm({
         </button>
 
         {onCancel && (
-          <button type="button" onClick={onCancel} disabled={loading}>
+          <button
+            type="button"
+            onClick={onCancel}
+            disabled={loading}
+            className={ui.secondaryButton}
+          >
             Annuler
           </button>
         )}

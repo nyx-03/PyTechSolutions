@@ -17,6 +17,8 @@ export default function DeleteTestimonialPage() {
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState("");
 
+  const goBack = () => router.push("/admin/testimonials");
+
   useEffect(() => {
     async function fetchTestimonial() {
       try {
@@ -48,9 +50,9 @@ export default function DeleteTestimonialPage() {
         throw new Error("Suppression refusée (permissions ?)");
       }
 
-      router.push("/admin/testimonials");
+      goBack();
     } catch (err) {
-      setError(err?.message || "Suppression refusée (permissions ?)");
+      setError(err?.message || "Suppression impossible.");
       setDeleting(false);
     }
   }
@@ -72,7 +74,7 @@ export default function DeleteTestimonialPage() {
             <button
               type="button"
               className={ui.secondaryButton}
-              onClick={() => router.push("/admin/testimonials")}
+              onClick={goBack}
             >
               Retour
             </button>
@@ -111,7 +113,7 @@ export default function DeleteTestimonialPage() {
             <button
               type="button"
               className={ui.secondaryButton}
-              onClick={() => router.push("/admin/testimonials")}
+              onClick={goBack}
               disabled={deleting}
             >
               Annuler

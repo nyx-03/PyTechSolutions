@@ -10,12 +10,21 @@ const ADMIN_TESTIMONIALS_ENDPOINT = "/testimonials/admin/";
 
 function formatApiError(err, fallback) {
   const payload = err?.payload;
-  if (payload && typeof payload === "object" && !Array.isArray(payload) && !payload.detail) {
-    const firstKey = Object.keys(payload)[0];
-    const firstMsg = Array.isArray(payload[firstKey]) ? payload[firstKey][0] : String(payload[firstKey]);
-    return `${firstKey}: ${firstMsg}`;
+
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    return err?.message || fallback;
   }
-  return err?.message || fallback;
+
+  if (payload.detail) {
+    return String(payload.detail);
+  }
+
+  const firstKey = Object.keys(payload)[0];
+  if (!firstKey) return err?.message || fallback;
+
+  const raw = payload[firstKey];
+  const firstMsg = Array.isArray(raw) ? raw[0] : raw;
+  return `${firstKey}: ${String(firstMsg)}`;
 }
 
 export default function EditTestimonialPage() {
@@ -26,6 +35,8 @@ export default function EditTestimonialPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+
+  const goBack = () => router.push("/admin/testimonials");
 
   useEffect(() => {
     async function fetchTestimonial() {
@@ -61,10 +72,10 @@ export default function EditTestimonialPage() {
     try {
       await apiJson(`${ADMIN_TESTIMONIALS_ENDPOINT}${id}/`, {
         method: "PATCH",
-        body: JSON.stringify(payload),
+        body: payload,
       });
 
-      router.push("/admin/testimonials");
+      goBack();
     } catch (err) {
       setError(formatApiError(err, "Mise à jour refusée (permissions ?)"));
     } finally {
@@ -97,7 +108,7 @@ export default function EditTestimonialPage() {
             <button
               type="button"
               className={ui.secondaryButton}
-              onClick={() => router.push("/admin/testimonials")}
+              onClick={goBack}
             >
               Retour
             </button>
@@ -117,7 +128,7 @@ export default function EditTestimonialPage() {
           <TestimonialForm
             initialData={initialData}
             onSubmit={handleUpdate}
-            onCancel={() => router.push("/admin/testimonials")}
+            onCancel={goBack}
             submitLabel="Enregistrer"
             loading={saving}
           />

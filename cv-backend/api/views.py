@@ -16,36 +16,7 @@ from .serializers import (
     RealisationAdminSerializer,
 )
 
-from django.conf import settings
-from rest_framework.exceptions import AuthenticationFailed
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
-
-
-class CookieJWTAuthentication(JWTAuthentication):
-    """JWT auth that reads the access token from an HttpOnly cookie.
-
-    This allows DRF views protected with IsAuthenticated to work without
-    requiring an Authorization: Bearer header.
-    """
-
-    def authenticate(self, request):
-        # First try standard header-based auth
-        header = self.get_header(request)
-        if header is not None:
-            return super().authenticate(request)
-
-        cookie_name = settings.SIMPLE_JWT.get("AUTH_COOKIE", "pt_access")
-        raw_token = request.COOKIES.get(cookie_name)
-        if not raw_token:
-            return None
-
-        try:
-            validated_token = self.get_validated_token(raw_token)
-            user = self.get_user(validated_token)
-            return (user, validated_token)
-        except (InvalidToken, TokenError) as exc:
-            raise AuthenticationFailed("Invalid or expired token") from exc
+from api.auth.authentication import CookieJWTAuthentication
 
 
 class RealisationViewSet(viewsets.ReadOnlyModelViewSet):
