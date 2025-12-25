@@ -24,11 +24,13 @@
 }
 
 .td {
-  padding: 10px 12px;
+  padding: 8px 12px;
+  vertical-align: middle;
 }
 
 .actions {
   text-align: right;
+  white-space: nowrap;
 }
 
 .actionsInner {
@@ -42,4 +44,10 @@
 
 .statusDim {
   opacity: 0.7;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

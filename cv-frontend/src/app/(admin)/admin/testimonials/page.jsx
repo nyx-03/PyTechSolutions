@@ -11,10 +11,6 @@ import tableStyles from "@/styles/adminTables.module.css";
 
 const ADMIN_TESTIMONIALS_ENDPOINT = "/testimonials/admin/";
 
-function formatBoolLabel(value) {
-  return value ? "Oui" : "Non";
-}
-
 export default function AdminTestimonialsPage() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,31 +44,30 @@ export default function AdminTestimonialsPage() {
         render: (r) => r.author_name || "—",
       },
       {
-        key: "company",
-        label: "Entreprise",
-        render: (r) => r.company || "—",
-      },
-      {
-        key: "is_published",
-        label: "Publié",
-        className: tableStyles.status,
+        key: "quote",
+        label: "Témoignage",
+        className: tableStyles.truncate,
         render: (r) => (
-          <span className={r.is_published ? "" : tableStyles.statusDim}>
-            {formatBoolLabel(!!r.is_published)}
+          <span className={tableStyles.truncate} title={r.quote || ""}>
+            {r.quote || "—"}
           </span>
         ),
-      },
-      {
-        key: "rating",
-        label: "Note",
-        className: tableStyles.status,
-        render: (r) => (r.rating ? `${r.rating}/5` : "—"),
       },
       {
         key: "sort_order",
         label: "Ordre",
         className: tableStyles.status,
         render: (r) => (Number.isFinite(r.sort_order) ? r.sort_order : "—"),
+      },
+      {
+        key: "is_published",
+        label: "Statut",
+        className: tableStyles.status,
+        render: (r) => (
+          <span className={r.is_published ? "" : tableStyles.statusDim}>
+            {r.is_published ? "Publié" : "Brouillon"}
+          </span>
+        ),
       },
     ],
     []
@@ -83,7 +78,7 @@ export default function AdminTestimonialsPage() {
       <div>
         <h1 className={ui.title}>Témoignages</h1>
         <p className={ui.subtitle}>
-          Crée, publie et organise les témoignages affichés sur la page d’accueil.
+          Gère les témoignages affichés sur la page d’accueil.
         </p>
       </div>
 
@@ -93,62 +88,46 @@ export default function AdminTestimonialsPage() {
     </div>
   );
 
-  if (loading) {
-    return (
-      <div className={ui.page}>
-        <div className={ui.pageWide}>
-          {header}
-          <div className={ui.panel}>
-            <p className={ui.text}>Chargement…</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className={ui.page}>
-        <div className={ui.pageWide}>
-          {header}
-          <div className={ui.panel}>
-            <p className={ui.error}>Impossible de charger les témoignages.</p>
-            <button className={ui.secondaryButton} onClick={load}>
-              Réessayer
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className={ui.page}>
       <div className={ui.pageWide}>
         {header}
 
         <div className={ui.panel}>
-          <AdminTable
-            columns={columns}
-            rows={rows}
-            rowKey={(r) => r.id}
-            renderActions={(r) => (
-              <>
-                <Link
-                  className={ui.secondaryButton}
-                  href={`/admin/testimonials/${r.id}/edit`}
-                >
-                  Modifier
-                </Link>
-                <Link
-                  className={ui.secondaryButton}
-                  href={`/admin/testimonials/${r.id}/delete`}
-                >
-                  Supprimer
-                </Link>
-              </>
-            )}
-          />
+          {loading ? (
+            <p className={ui.text}>Chargement…</p>
+          ) : error ? (
+            <>
+              <p className={ui.error}>Impossible de charger les témoignages.</p>
+              <button className={ui.secondaryButton} onClick={load}>
+                Réessayer
+              </button>
+            </>
+          ) : rows.length === 0 ? (
+            <p className={ui.text}>Aucun témoignage pour le moment.</p>
+          ) : (
+            <AdminTable
+              columns={columns}
+              rows={rows}
+              rowKey={(r) => r.id}
+              renderActions={(r) => (
+                <>
+                  <Link
+                    className={ui.secondaryButton}
+                    href={`/admin/testimonials/${r.id}/edit`}
+                  >
+                    Modifier
+                  </Link>
+                  <Link
+                    className={ui.secondaryButton}
+                    href={`/admin/testimonials/${r.id}/delete`}
+                  >
+                    Supprimer
+                  </Link>
+                </>
+              )}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -21,16 +21,8 @@ export default function Testimonials() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading || error) return null;
-
-  if (items.length === 0) {
-    return (
-      <section className={styles.testimonials}>
-        <div className={`${ui.container} ${styles.inner}`}>
-          <p className={styles.empty}>Aucun témoignage pour le moment.</p>
-        </div>
-      </section>
-    );
+  if (loading || error) {
+    return null;
   }
 
   return (
@@ -52,7 +44,7 @@ export default function Testimonials() {
           Ce que disent les clients après la mise en production
         </motion.h2>
 
-        <motion.p className={styles.intro} variants={fadeInUpItem}>
+        <motion.p className={styles.subtitle} variants={fadeInUpItem}>
           Quelques retours de personnes qui utilisent au quotidien les outils
           et sites développés par PyTechSolutions.
         </motion.p>

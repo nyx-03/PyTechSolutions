@@ -1,19 +1,27 @@
 /* Testimonials – harmonized with globals.css tokens and ui.module.css */
 .testimonials {
-  min-height: calc(100vh - var(--pt-header-height));
-  display: flex;
-  align-items: center;
   position: relative;
   overflow: hidden;
-  background-blend-mode: overlay;
-  padding-inline: var(--pt-space-4);
+  min-height: calc(100vh - var(--pt-header-height));
+  display: grid;
+  align-items: center;
+  padding-top: calc(var(--pt-header-height) + var(--pt-space-6));
+  padding-bottom: var(--pt-space-8);
+  padding-block: var(--pt-space-7);
 }
 
 .inner {
-  composes: container from "@/styles/ui.module.css";
+  width: 100%;
+  max-width: var(--pt-max-w);
+  margin: 0 auto;
 }
 
 /* En-tête */
+
+.header {
+  text-align: center;
+  margin-bottom: var(--pt-space-5);
+}
 
 .kicker {
   composes: kicker from "@/styles/ui.module.css";
@@ -28,34 +36,59 @@
   margin-bottom: var(--pt-space-3);
 }
 
+.subtitle {
+  composes: text containerText from "@/styles/ui.module.css";
+  color: var(--pt-color-text-muted);
+  margin: var(--pt-space-3) auto 0;
+}
+
+.empty {
+  composes: text from "@/styles/ui.module.css";
+  text-align: center;
+  color: var(--pt-color-text-muted);
+  padding: var(--pt-space-6);
+  border-radius: var(--pt-radius-md);
+  border: var(--pt-border);
+  background: var(--pt-surface-glass);
+  backdrop-filter: var(--pt-blur);
+  -webkit-backdrop-filter: var(--pt-blur);
+}
+
 .intro {
   composes: text containerText from "@/styles/ui.module.css";
   color: var(--pt-color-text-muted);
   margin-bottom: var(--pt-space-6);
 }
 
-/* Grille de témoignages */
-
-.grid {
+.content {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--pt-space-5);
+  gap: var(--pt-space-6);
+  align-items: center;
 }
+
+/* Removed .grid block */
 
 /* Carte “tech” */
 
 .card {
   composes: card from "@/styles/ui.module.css";
   border-radius: 18px;
-  background: radial-gradient(
-      circle at top left,
-      rgba(56, 189, 248, 0.12),
-      transparent 60%
+  background:
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(56, 189, 248, 0.14),
+      transparent 55%
     ),
-    rgba(15, 23, 42, 0.96);
+    radial-gradient(
+      circle at 90% 30%,
+      rgba(34, 211, 238, 0.10),
+      transparent 55%
+    ),
+    rgba(15, 23, 42, 0.88);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-shadow: 0 22px 55px rgba(15, 23, 42, 0.55);
 }
 
 /* Top barre type fenêtre */
@@ -63,92 +96,17 @@
 .cardTop {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: var(--pt-space-2) var(--pt-space-3);
-  border-bottom: var(--pt-border);
-  background: linear-gradient(
-    to right,
-    rgba(15, 23, 42, 0.95),
-    rgba(15, 23, 42, 0.8)
-  );
-}
-
-.dots {
-  display: flex;
-  gap: 0.25rem;
-}
-
-.dots span {
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: rgba(148, 163, 184, 0.7);
-}
-
-.dots span:nth-child(1) {
-  background: #f97373;
-}
-.dots span:nth-child(2) {
-  background: #facc15;
-}
-.dots span:nth-child(3) {
-  background: #22c55e;
-}
-
-.cardProject {
-  font-size: 0.8rem;
-  color: var(--pt-color-text-muted);
-}
-
-/* Zone type “console” */
-
-.console {
-  padding: var(--pt-space-4) var(--pt-space-4) var(--pt-space-3);
-  border-bottom: 1px dashed rgba(148, 163, 184, 0.3);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-  font-size: var(--pt-text-sm);
-}
-
-.consoleLine {
-  color: var(--pt-color-text-muted);
-  margin-bottom: var(--pt-space-2);
-}
-
-.prompt {
-  color: var(--pt-color-accent);
-}
-
-.command {
-  color: var(--pt-color-primary);
-}
-
-.quote {
-  margin: 0;
-  color: var(--pt-color-text-main);
-  line-height: 1.5;
-}
-
-.quotePrefix {
-  margin-right: 0.4rem;
-  color: var(--pt-color-primary);
-}
-
-/* Footer de la carte */
-
-.cardFooter {
-  padding: var(--pt-space-3) var(--pt-space-4) var(--pt-space-4);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   gap: var(--pt-space-3);
+  padding: var(--pt-space-4) var(--pt-space-4) var(--pt-space-3);
 }
 
-.person {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
+/* Removed unused dots span styles */
+
+/* Removed .cardProject */
+
+/* Removed console styles */
+
+/* Removed footer/person blocks */
 
 .avatar {
   width: 32px;
@@ -168,12 +126,6 @@
   );
 }
 
-.personInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-}
-
 .name {
   font-size: var(--pt-text-sm);
   font-weight: 600;
@@ -184,11 +136,14 @@
   color: var(--pt-color-text-muted);
 }
 
-.stack {
-  font-size: var(--pt-text-xs);
-  color: var(--pt-color-text-muted);
-  text-align: right;
+.quote {
+  margin: 0;
+  color: var(--pt-color-text-main);
+  line-height: 1.5;
+  font-size: var(--pt-text-sm);
+  opacity: 0.95;
 }
+
 /* Layout carousel */
 
 .carousel {
@@ -197,18 +152,19 @@
   align-items: center;
   gap: var(--pt-space-3);
   margin-bottom: var(--pt-space-5);
+  max-width: 100%;
 }
 
 .cardWrapper {
-  max-width: 720px;
+  max-width: 820px;
   margin: 0 auto;
 }
 
 /* Boutons de nav gauche/droite */
 
 .navButton {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--pt-radius-pill);
   border: var(--pt-border);
   background: rgba(15, 23, 42, 0.95);
@@ -280,22 +236,4 @@
   }
 }
 
-/* Responsive */
-
-@media (max-width: 1000px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 700px) {
-  .testimonials {
-    min-height: auto;
-    padding-top: var(--pt-space-7);
-    padding-bottom: var(--pt-space-7);
-  }
-
-  .grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
+/* Removed responsive .grid rules @media (max-width: 1000px) and @media (max-width: 700px) */
