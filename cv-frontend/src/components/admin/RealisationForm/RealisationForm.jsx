@@ -12,7 +12,14 @@ export default function RealisationForm({
   loading = false,
 }) {
   const [title, setTitle] = useState(initialData.title || "");
+  const [excerpt, setExcerpt] = useState(initialData.excerpt || "");
   const [content, setContent] = useState(initialData.content || "");
+  const normalizeStack = (value) => {
+    if (Array.isArray(value)) return value.join(", ");
+    if (typeof value === "string") return value;
+    return "";
+  };
+  const [stack, setStack] = useState(normalizeStack(initialData.stack));
   const [type, setType] = useState(initialData.type || "web");
   const [status, setStatus] = useState(initialData.status || "draft");
 
@@ -21,7 +28,9 @@ export default function RealisationForm({
   // If initialData changes (edit page after fetch), sync the form.
   useEffect(() => {
     setTitle(initialData.title || "");
+    setExcerpt(initialData.excerpt || "");
     setContent(initialData.content || "");
+    setStack(normalizeStack(initialData.stack));
     setType(initialData.type || "web");
     setStatus(initialData.status || "draft");
   }, [initialData]);
@@ -30,8 +39,13 @@ export default function RealisationForm({
     e.preventDefault();
     setError("");
 
-    if (!title.trim() || !content.trim()) {
-      setError("Le titre et le contenu sont obligatoires.");
+    if (!title.trim() || !excerpt.trim() || !content.trim()) {
+      setError("Le titre, le résumé et le contenu sont obligatoires.");
+      return;
+    }
+
+    if (excerpt.trim().length < 20) {
+      setError("Le résumé doit contenir au moins 20 caractères.");
       return;
     }
 
@@ -42,7 +56,9 @@ export default function RealisationForm({
 
     onSubmit({
       title: title.trim(),
+      excerpt: excerpt.trim(),
       content: content.trim(),
+      stack: stack.trim(),
       type,
       status,
     });
@@ -56,6 +72,26 @@ export default function RealisationForm({
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
+        />
+      </label>
+
+      <label className={styles.field}>
+        <span>Résumé (affiché sur la page publique)</span>
+        <textarea
+          value={excerpt}
+          onChange={(e) => setExcerpt(e.target.value)}
+          rows={3}
+          placeholder="Résumé court du projet (page liste / home)"
+          required
+        />
+      </label>
+
+      <label className={styles.field}>
+        <span>Stack (technos, séparées par des virgules)</span>
+        <input
+          value={stack}
+          onChange={(e) => setStack(e.target.value)}
+          placeholder="Django, Next.js, PostgreSQL, Docker"
         />
       </label>
 

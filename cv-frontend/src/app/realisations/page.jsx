@@ -1,37 +1,7 @@
 import Link from "next/link";
 import styles from "@/styles/Realisations.module.css";
 import ui from "@/styles/ui.module.css";
-
-const PROJECTS = [
-  {
-    title: "PyTechSolutions — Site vitrine", 
-    description:
-      "Site vitrine moderne avec scroll narratif, sections modulaires et animations (Next.js + Framer Motion).",
-    tags: ["Next.js", "UI/UX", "Framer Motion"],
-    href: "/realisations#pytechsolutions",
-  },
-  {
-    title: "CV Manager", 
-    description:
-      "Outil desktop pour créer et exporter des CV/lettres avec templates, styles et export PDF.",
-    tags: ["Python", "PySide6", "PDF"],
-    href: "/realisations#cv-manager",
-  },
-  {
-    title: "Entreprise-Radar", 
-    description:
-      "Prospection et exploration d'entreprises via données Sirene/INSEE : recherche, cache, et normalisation.",
-    tags: ["Django", "API", "Data"],
-    href: "/realisations#entreprise-radar",
-  },
-  {
-    title: "Zip Manager", 
-    description:
-      "Application de compression/décompression avec workers, presets et backend 7zip, orientée performance.",
-    tags: ["Python", "Workers", "7zip"],
-    href: "/realisations#zip-manager",
-  },
-];
+import { getRealisations } from "@/lib/apiClient";
 
 function Tag({ children }) {
   return (
@@ -42,41 +12,59 @@ function Tag({ children }) {
 }
 
 function ProjectCard({ project }) {
+  const slug = project.slug || "";
+  let tags = [];
+  if (Array.isArray(project.tags)) {
+    tags = project.tags;
+  } else if (Array.isArray(project.stack)) {
+    tags = project.stack;
+  } else if (typeof project.stack === "string") {
+    tags = project.stack.split(",").map((t) => t.trim());
+  }
+
+  const title = project.title || project.name;
+  const description = project.description || project.content || "";
+
   return (
     <article
-      id={
-        project.href.includes("#")
-          ? project.href.split("#")[1]
-          : undefined
-      }
+      id={slug || undefined}
       className={styles.card}
     >
       <header className={styles.cardHeader}>
         <h2 className={styles.cardTitle}>
-          {project.title}
+          {title}
         </h2>
         <p className={styles.cardDescription}>
-          {project.description}
+          {description}
         </p>
       </header>
 
       <div className={styles.tagList}>
-        {project.tags.map((t) => (
+        {tags.map((t) => (
           <Tag key={t}>{t}</Tag>
         ))}
       </div>
 
-      <div className={styles.cardLink}>
-        <Link href={project.href} className={styles.cardAction}>
-          Voir les détails
-          <span aria-hidden="true">→</span>
-        </Link>
-      </div>
+      {slug && (
+        <div className={styles.cardLink}>
+          <Link href={`/realisations/${slug}`} className={styles.cardAction}>
+            Voir les détails
+            <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      )}
     </article>
   );
 }
 
-export default function RealisationsPage() {
+export default async function RealisationsPage() {
+  let projects = [];
+  try {
+    projects = await getRealisations();
+  } catch (e) {
+    projects = [];
+  }
+
   return (
     <main className={styles.page}>
       <section className={styles.hero}>
@@ -93,9 +81,13 @@ export default function RealisationsPage() {
         aria-label="Liste des projets"
         className={styles.grid}
       >
-        {PROJECTS.map((p) => (
-          <ProjectCard key={p.title} project={p} />
-        ))}
+        {projects.length === 0 ? (
+          <p className={styles.empty}>Aucune réalisation pour le moment.</p>
+        ) : (
+          projects.map((p) => (
+            <ProjectCard key={p.slug || p.id || p.title} project={p} />
+          ))
+        )}
       </section>
 
       <section className={styles.cta}>

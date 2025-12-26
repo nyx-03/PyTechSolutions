@@ -7,6 +7,9 @@ from django.contrib.auth.models import Group
 class RealisationListSerializer(serializers.ModelSerializer):
     """Serializer used for listing realisations."""
 
+    # Backward/forward compatibility: frontend expects `description`
+    description = serializers.CharField(source="excerpt", read_only=True)
+
     class Meta:
         model = Realisation
         fields = (
@@ -14,6 +17,7 @@ class RealisationListSerializer(serializers.ModelSerializer):
             "title",
             "slug",
             "excerpt",
+            "description",
             "type",
             "stack",
             "featured",
@@ -24,6 +28,9 @@ class RealisationListSerializer(serializers.ModelSerializer):
 class RealisationDetailSerializer(serializers.ModelSerializer):
     """Serializer used for realisation detail view."""
 
+    # Backward/forward compatibility: frontend expects `description`
+    description = serializers.CharField(source="excerpt", read_only=True)
+
     class Meta:
         model = Realisation
         fields = (
@@ -31,6 +38,7 @@ class RealisationDetailSerializer(serializers.ModelSerializer):
             "title",
             "slug",
             "excerpt",
+            "description",
             "content",
             "type",
             "stack",

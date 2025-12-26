@@ -1,164 +1,105 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import styles from "@/styles/RealisationsAdmin.module.css";
-import ui from "@/styles/ui.module.css";
-import {
-  fadeInUpContainer,
-  fadeInUpItem,
-} from "@/lib/animations/variants";
 
-const PROJECTS = [
-  {
-    type: "Outil interne",
-    name: "Site PyTechSolutions",
-    description:
-      "Site vitrine et base technique pour présenter les services, les références et le CV dynamique de PyTechSolutions.",
-    stack: "Python · Django · Next.js",
-    status: "En production",
-    result:
-      "Un socle clair pour présenter les offres et centraliser les futurs modules (blog, espace client, outils internes).",
-  },
-  {
-    type: "Site client",
-    name: "La Voix Éclatante de l’Âme",
-    description:
-      "Site sur mesure pour une praticienne, avec mise en avant de l’univers, des offres et d’un système de prise de contact optimisé.",
-    stack: "Python · Django · Wagtail",
-    status: "En ligne",
-    result:
-      "Un site plus professionnel, mieux structuré et plus rassurant pour les clientes, avec davantage de demandes entrantes.",
-  },
-  {
-    type: "Site client",
-    name: "L’Étoile d’Éli",
-    description:
-      "Site vitrine pour une activité d’accompagnement, avec une structure simple mais évolutive.",
-    stack: "Python · Django · Wagtail",
-    status: "En ligne",
-    result:
-      "Une présence en ligne cohérente, facilement administrable, prête à accueillir de futurs contenus et offres.",
-  },
-];
+import styles from "@/styles/Realisations.module.css";
+import ui from "@/styles/ui.module.css";
+import { fadeInUpContainer, fadeInUpItem } from "@/lib/animations/variants";
+import { getRealisations } from "@/lib/apiClient";
 
 export default function Realisations() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const total = PROJECTS.length;
-  const current = PROJECTS[activeIndex];
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev - 1 + total) % total);
-  };
-
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % total);
-  };
-
-  const handleSelect = (index) => {
-    setActiveIndex(index);
-  };
+  useEffect(() => {
+    getRealisations({ limit: 4 })
+      .then((data) => {
+        setProjects(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <motion.section
       id="realisations"
-      className={styles.realisations}
+      className={styles.realisationsSection}
+      aria-labelledby="realisations-title"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
     >
-      <motion.div className={styles.inner} variants={fadeInUpContainer}>
-        <motion.p className={styles.kicker} variants={fadeInUpItem}>
-          Réalisations
-        </motion.p>
+      <div className={styles.bgGlow} aria-hidden="true" />
 
-        <motion.h2 className={styles.title} variants={fadeInUpItem}>
-          Des projets concrets, pas seulement des idées
-        </motion.h2>
-
-        <motion.p className={styles.intro} variants={fadeInUpItem}>
-          Quelques exemples de projets sur lesquels PyTechSolutions a travaillé.
-          L’objectif reste toujours le même&nbsp;: des solutions utiles,
-          maintenables et adaptées à la réalité du terrain.
-        </motion.p>
-
-        {/* Carousel */}
-        <motion.div className={styles.carousel} variants={fadeInUpItem}>
-          <button
-            type="button"
-            className={styles.navButton}
-            onClick={handlePrev}
-            aria-label="Projet précédent"
+      <motion.div
+        className={`${ui.container} ${styles.realisationsInner}`}
+        variants={fadeInUpContainer}
+      >
+        <div className={styles.sectionHeader}>
+          <motion.p className={styles.sectionKicker} variants={fadeInUpItem}>
+            Réalisations
+          </motion.p>
+          <motion.h2
+            id="realisations-title"
+            className={styles.sectionTitle}
+            variants={fadeInUpItem}
           >
-            ‹
-          </button>
+            Des projets concrets, pas seulement des idées
+          </motion.h2>
+          <motion.p className={styles.sectionSubtitle} variants={fadeInUpItem}>
+            Quelques exemples de projets sur lesquels PyTechSolutions a
+            travaillé. L’objectif reste toujours le même&nbsp;: des solutions
+            utiles, maintenables et adaptées à la réalité du terrain.
+          </motion.p>
+        </div>
 
-          <div className={styles.cardWrapper}>
-            <AnimatePresence mode="wait" initial={false}>
+        <div className={styles.projectList}>
+          {loading ? (
+            <p>Chargement des réalisations…</p>
+          ) : projects.length === 0 ? (
+            <p>Aucune réalisation pour le moment.</p>
+          ) : (
+            projects.map((project, index) => (
               <motion.article
-                key={activeIndex}
-                className={styles.card}
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -40 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
+                key={project.title}
+                className={styles.projectItem}
+                variants={fadeInUpItem}
               >
-                <span className={styles.type}>{current.type}</span>
-                <h3 className={styles.cardTitle}>{current.name}</h3>
+                <div className={styles.projectHeader}>
+                  <span className={styles.projectIndex}>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className={styles.projectType}>{project.type || "Projet"}</span>
+                </div>
+                <h3 className={styles.projectTitle}>{project.title}</h3>
+                <p className={styles.projectDescription}>{project.description}</p>
 
-                <p className={styles.description}>{current.description}</p>
-
-                {current.result && (
-                  <div className={styles.resultBlock}>
+                {project.result && (
+                  <div className={styles.projectResult}>
                     <p className={styles.resultLabel}>Impact</p>
-                    <p className={styles.result}>{current.result}</p>
+                    <p className={styles.resultText}>{project.result}</p>
                   </div>
                 )}
 
-                <div className={styles.meta}>
-                  <span className={styles.stack}>{current.stack}</span>
-                  <span className={styles.status}>{current.status}</span>
+                <div className={styles.projectMeta}>
+                  <span className={styles.projectStack}>{project.stack || ""}</span>
+                  <span className={styles.projectStatus}>{project.status}</span>
                 </div>
               </motion.article>
-            </AnimatePresence>
-          </div>
+            ))
+          )}
+        </div>
 
-          <button
-            type="button"
-            className={styles.navButton}
-            onClick={handleNext}
-            aria-label="Projet suivant"
-          >
-            ›
-          </button>
-        </motion.div>
-
-        {/* Dots */}
-        <motion.div className={styles.dotsNav} variants={fadeInUpItem}>
-          {PROJECTS.map((project, index) => (
-            <button
-              key={project.name}
-              type="button"
-              className={`${styles.dot} ${
-                index === activeIndex ? styles.dotActive : ""
-              }`}
-              onClick={() => handleSelect(index)}
-              aria-label={`Aller au projet ${project.name}`}
-            />
-          ))}
-        </motion.div>
-
-        {/* Footer CTA */}
         <motion.div className={styles.footer} variants={fadeInUpItem}>
-          <p>
+          <p className={styles.footerText}>
             Vous souhaitez voir comment ces approches pourraient s&apos;adapter
             à votre activité&nbsp;?
           </p>
-          <Link
-            href="/contact"
-            className={ui.primaryButton}
-          >
+          <Link href="/contact" className={ui.primaryButton}>
             Discuter de mon projet
           </Link>
         </motion.div>

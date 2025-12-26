@@ -126,3 +126,46 @@ export async function apiJson(path, options = {}) {
 
   return payload;
 }
+
+// ==============================
+// Domain helpers (public)
+// ==============================
+
+function asList(payload) {
+  if (!payload) return [];
+  // DRF pagination commonly returns { count, next, previous, results }
+  if (Array.isArray(payload)) return payload;
+  if (Array.isArray(payload.results)) return payload.results;
+  return [];
+}
+
+/**
+ * Fetch published realisations (public endpoint).
+ * Works with both non-paginated ([]) and paginated ({ results: [] }) DRF responses.
+ *
+ * Options:
+ * - limit: number (optional) -> slice client-side for reliability
+ */
+export async function getRealisations(options = {}) {
+  const { limit } = options;
+
+  // Do NOT assume filtering/pagination query params exist.
+  // Fetch the list and slice client-side for now.
+  const payload = await apiJson("/realisations/");
+  const items = asList(payload);
+
+  if (typeof limit === "number") {
+    return items.slice(0, Math.max(0, limit));
+  }
+
+  return items;
+}
+
+/**
+ * Fetch a single realisation by slug (public endpoint).
+ */
+export async function getRealisation(slug) {
+  if (!slug) throw new Error("Missing slug");
+  const safe = encodeURIComponent(String(slug));
+  return apiJson(`/realisations/${safe}/`);
+}
